@@ -127,11 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Bi-population.h" />
     <ClInclude Include="Cooperative.h" />
     <ClInclude Include="Global_Search.h" />
     <ClInclude Include="Initialization.h" />
     <ClInclude Include="Local_search.h" />
     <ClInclude Include="OverloadTools.h" />
+    <ClInclude Include="Parameter.h" />
     <ClInclude Include="Swarm_Intelligence.h" />
     <ClInclude Include="solution.h" />
     <ClInclude Include="myutils.h" />

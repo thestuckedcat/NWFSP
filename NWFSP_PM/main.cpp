@@ -1,7 +1,9 @@
-#include"Swarm_Intelligence.h"
+//#include"Swarm_Intelligence.h"
 #include"solution.h"
-
+#include"Bi-population.h"
+#include"Parameter.h"
 int main() {
+	/*
 	const int max_gen = 2000;
 	const int job_num = 20;
 	const int machine_num = 5;
@@ -17,6 +19,18 @@ int main() {
 												Threshold,
 												scenario_num);
 	test1.LN_UN_comparison();
+	*/
+
+	PARAMETERS::Params param = PARAMETERS::Params();
+	param.generate_scenario();
+
+	Bipopulation_memetic<NWFSP_Solution, Population> test1(param);
+
+	test1.framework();
+
+
+
+	
 
 
 

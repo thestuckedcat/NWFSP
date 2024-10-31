@@ -6,7 +6,7 @@
 # include<random>
 # include<set>
 # include"myutils.h"
-
+# include "Parameter.h"
 
 /*
 
@@ -43,7 +43,7 @@ struct SCENARIO_INFO {
 	int worst_scenario_makespan;
 	int Penalty_of_TBS;
 
-	SCENARIO_INFO() { Penalty_of_TBS = -1; }
+	//SCENARIO_INFO() { Penalty_of_TBS = -1; }
 	SCENARIO_INFO(std::vector<int> &scen, int Threshold) {
 		bad_scenario_num = -1;
 		worst_scenario_makespan = -1;
@@ -52,7 +52,22 @@ struct SCENARIO_INFO {
 
 		Update_INFO();
 	}
-
+	SCENARIO_INFO() {
+		threshold = 0;
+	}
+	SCENARIO_INFO& operator=(const SCENARIO_INFO& other) noexcept {
+		if (this != &other) {
+			scenario_makespan = other.scenario_makespan;
+			threshold = other.threshold;
+			bad_scenario_num = other.bad_scenario_num;
+			bad_scenario_set = other.bad_scenario_set;
+			worst_scenario_id = other.worst_scenario_id;
+			worst_scenario_makespan = other.worst_scenario_makespan;
+			Penalty_of_TBS = other.Penalty_of_TBS;
+		}
+		return *this;
+	}
+private:
 	void Update_INFO() {
 		ASSERT_MSG(threshold > 0, "threshold setup wrongly");
 
@@ -76,18 +91,6 @@ struct SCENARIO_INFO {
 
 	}
 
-	SCENARIO_INFO& operator=(const SCENARIO_INFO& other) noexcept {
-		if (this != &other) {
-			scenario_makespan = other.scenario_makespan;
-			threshold = other.threshold;
-			bad_scenario_num = other.bad_scenario_num;
-			bad_scenario_set = other.bad_scenario_set;
-			worst_scenario_id = other.worst_scenario_id;
-			worst_scenario_makespan = other.worst_scenario_makespan;
-			Penalty_of_TBS = other.Penalty_of_TBS;
-		}
-		return *this;
-	}
 
 };
 
@@ -147,18 +150,24 @@ class NWFSP_Solution {
 
 		return sequence_info_;
 	}
-public:         
+public:
+	/*
 	int machine_num;
 	int job_num;
-
+	*/
+	std::vector<int> scenario_makespan;
+	std::vector<int> trans_scenario_makespan;
+	/*
 	int makespan;
 	int makespan_trans;
+	*/
 	// job sequence
 	std::vector<int> sequence;
 	std::vector<int> trans_sequence;
 	// store the (start_time, completion_time) pair, shape(num_machines, num_jobs) for particular scenario
-	std::vector<std::vector<node>> sequence_info;
-	std::vector<std::vector<node>> sequence_info_trans;
+	
+
+	
 
 	std::vector<std::vector<std::vector<node>>> scenario_sequence_info;
 	std::vector<std::vector<std::vector<node>>> scenario_sequence_info_trans;
@@ -177,15 +186,14 @@ public:
 	// A solution can only be constructed by sequence
 	NWFSP_Solution(std::vector<int> _sequence)
 		:sequence{ _sequence } {
-		makespan = -1;
-		makespan_trans = -1;
+		//makespan = -1;
+		//makespan_trans = -1;
 		last_state = 0;
 
-		SI = SCENARIO_INFO();
-		SI_trans = SCENARIO_INFO();
 	}
 
 	bool operator==(const NWFSP_Solution& rhs) const{
+		int job_num = rhs.sequence.size();
 		if (this == &rhs) {
 			return true;
 		}
@@ -207,14 +215,16 @@ public:
 			return *this;
 		}
 
-		this->machine_num					= rhs.machine_num;
-		this->job_num						= rhs.job_num;
-		this->makespan						= rhs.makespan;
-		this->makespan_trans				= rhs.makespan_trans;
+		//this->machine_num					= rhs.machine_num;
+		//this->job_num						= rhs.job_num;
+		//this->makespan						= rhs.makespan;
+		//this->makespan_trans				= rhs.makespan_trans;
+		this->scenario_makespan				= rhs.scenario_makespan;
+		this->trans_scenario_makespan		= rhs.trans_scenario_makespan;
 		this->sequence						= rhs.sequence;
 		this->trans_sequence				= rhs.trans_sequence;
-		this->sequence_info					= rhs.sequence_info;
-		this->sequence_info_trans			= rhs.sequence_info_trans;
+		//this->sequence_info					= rhs.sequence_info;
+		//this->sequence_info_trans			= rhs.sequence_info_trans;
 		this->scenario_sequence_info		= rhs.scenario_sequence_info;
 		this->scenario_sequence_info_trans	= rhs.scenario_sequence_info_trans;
 		this->SI							= rhs.SI;
@@ -260,15 +270,18 @@ public:
 		scenario_proessing_time_matrix: num_scenarios * num_jobs * num_machines
 	*/
 
+	
 	int get_makespan(std::vector<std::vector<int>>& processing_time) {
 		assert(!processing_time.empty());
-		machine_num = processing_time[0].size();
-		job_num = sequence.size();
+		int machine_num = processing_time[0].size();
+		int job_num = sequence.size();
+		std::vector<std::vector<node>> sequence_info;
+		std::vector<std::vector<node>> sequence_info_trans;
 		sequence_info = Decode_sequence(processing_time, sequence);
-		makespan = sequence_info[machine_num - 1][job_num - 1].end;
+		int makespan = sequence_info[machine_num - 1][job_num - 1].end;
 		return makespan;
 	}
-
+	/*
 	int get_transition_makespan(std::vector<std::vector<int>>& processing_time) {
 		assert(!processing_time.empty());
 		machine_num = processing_time[0].size();
@@ -278,11 +291,29 @@ public:
 		makespan_trans = sequence_info_trans[machine_num - 1][job_num - 1].end;
 		return makespan;
 	}
+	*/
 
 
 
 
 	// Calculate Scenario Info of this solution
+	void calculate_scenario_makespan(PARAMETERS::Params& param) {
+		// makespan under each scenario
+		scenario_makespan = std::vector<int>(param.scenario_num);
+
+		scenario_sequence_info.clear();
+
+
+		// Calculate makespan under all sceanrios
+		for (int i = 0; i < param.scenario_num; i++) {
+			scenario_sequence_info.push_back(Decode_sequence(param.scenario[i],sequence));
+			scenario_makespan[i] = scenario_sequence_info[i][param.machine_num - 1][param.job_num - 1].end;
+		}
+
+		// Calculate scenario information under these scenarios
+		SI = SCENARIO_INFO(scenario_makespan, param.Threshold);
+	}
+	/*
 	void calculate_scenario_makespan(std::vector<std::vector<std::vector<int>>> &scenario_processing_time, int Threshold) {
 		int scenario_num = scenario_processing_time.size();
 		job_num = scenario_processing_time[0].size();
@@ -303,10 +334,23 @@ public:
 
 
 		SI = SCENARIO_INFO(scenario_makespan, Threshold);
-	}
+	}*/
 
 
 	// Calculate Scenario Info of trans solution
+	void calculate_transition_scenario_makespan(PARAMETERS::Params& param) {
+		// makespan under each scenario
+		trans_scenario_makespan = std::vector<int>(param.scenario_num);
+
+		// Start-End time of each operation under every scenario
+		scenario_sequence_info_trans.clear();
+		for (int i = 0; i < param.scenario_num; i++) {
+			scenario_sequence_info_trans.push_back(Decode_sequence(param.scenario[i], trans_sequence));
+			scenario_makespan[i] = scenario_sequence_info_trans[i][param.machine_num - 1][param.job_num - 1].end;
+		}
+		SI_trans = SCENARIO_INFO(scenario_makespan, param.Threshold);
+	}
+	/*
 	void calculate_transition_scenario_makespan(std::vector<std::vector<std::vector<int>>>& scenario_processing_time, int Threshold) {
 		int scenario_num = scenario_processing_time.size();
 		job_num = scenario_processing_time[0].size();
@@ -328,6 +372,7 @@ public:
 		SI_trans = SCENARIO_INFO(scenario_makespan, Threshold);
 	}
 
+	*/
 
 	// Elite solution
 	// Trans tran_seq to current_seq
@@ -335,11 +380,11 @@ public:
 		if (SI_trans.Penalty_of_TBS >= 0 && SI.Penalty_of_TBS > SI_trans.Penalty_of_TBS) {
 			ASSERT_MSG(SI_trans.Penalty_of_TBS >= 0, "Trans penalty is not calculated");
 			ASSERT_MSG(SI.Penalty_of_TBS >= 0, "Origin penalty is not calculated");
-			makespan = makespan_trans;
-			sequence = trans_sequence;
-			sequence_info = sequence_info_trans;
-			scenario_sequence_info = scenario_sequence_info_trans;
-			SI = SI_trans;
+			scenario_makespan = std::move(trans_scenario_makespan);
+			sequence = std::move(trans_sequence);
+			//sequence_info = std::move(sequence_info_trans);
+			scenario_sequence_info = std::move(scenario_sequence_info_trans);
+			SI = std::move(SI_trans);
 			return true;
 		}
 		return false;
@@ -410,6 +455,18 @@ public:
 			}
 		}
 		//std::cout << count << " of " << population.size() << " has been improved" << std::endl;
+	}
+
+
+
+	friend std::ostream& operator<<(std::ostream& os, const Population& pop) {
+		os << "--------------------------------------------------------------------------------------\n";
+		for (auto i : pop.population) {
+			os << i << std::endl;
+		}
+		os << "----------------------------------------------------------------------------------------\n";
+
+		return os;
 	}
 };
 

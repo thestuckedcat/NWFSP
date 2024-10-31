@@ -12,34 +12,62 @@
 #include"solution.h"
 #include<numeric>
 #include "OverloadTools.h"
-
+#include "Parameter.h"
 
 
 
 namespace INITIALIZATION {
-	/*
-		INPUT: pop_r, pop_t with the following INFO:
 
-		1. pop_size
-
-		2. job_num
-
-		3. machine_num
-
-		4. scenario_processing_time
-
-
-		OUTPUT: pop_r, pop_t with  
-		
-		std::vector<T> population 
-		
-		Solution_index
-								
-		SI
-
-	*/
     template<template<typename> class POP, typename Solution_type>
     struct SCENARIO_NEH_DOUBLE {
+		/*
+			Generate solution under every different scenario
+
+			Fill the population with random generated solution 
+		
+		*/
+		void operator()(PARAMETERS::Params &param, POP<Solution_type>& pop) {
+			std::unordered_set<Solution_type> individuals;
+
+			for (int i = 0; i < param.scenario_num; i++) {
+				individuals.insert(NEH_Generate(param.scenario[i]));
+			}
+
+			if (individuals.size() < param.pop_size) {
+				RANDOM_Generate(param.pop_size, individuals, param.job_num);
+			}
+
+			pop.Threshold = param.Threshold;
+
+			for (auto i : individuals) {
+				i.calculate_scenario_makespan(param);
+				pop.population.push_back(i);
+			}
+		}
+
+		/*
+			OVERLOAD VERSION
+
+			INPUT: pop_r, pop_t with the following INFO:
+
+			1. pop_size
+
+			2. job_num
+
+			3. machine_num
+
+			4. scenario_processing_time
+
+
+			OUTPUT: pop_r, pop_t with
+
+			std::vector<T> population
+
+			Solution_index
+
+			SI
+
+		*/
         void operator()(POP<Solution_type>& pop_r, POP<Solution_type> & pop_t) {// pop_size for single population
 			int Threshold = pop_r.Threshold;
 			int pop_size = pop_r.pop_size;

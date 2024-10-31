@@ -18,6 +18,9 @@
 #endif
 
 
+#define PRINT_CURRENT_LOCATION() \
+    std::cout << "File: " << __FILE__ << ", Line: " << __LINE__ << std::endl;
+
 // µ¥Î»ºÁÃë
 #define CPU_TIME(accum_time, func_call) \
     { \
