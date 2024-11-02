@@ -242,6 +242,9 @@ namespace INITIALIZATION {
 			// state: 4		action: choose a single scenario
 			q_table = std::vector<std::vector<float>>(4, std::vector<float>(pop.scenario_processing_time.size(), 0));
 		}
+		void operator()(std::vector<std::vector<float>>& q_table, PARAMETERS::Params& param) {
+			q_table = std::vector<std::vector<float>>(4, std::vector<float>(param.scenario_num, 0));
+		}
 	};
 }
 

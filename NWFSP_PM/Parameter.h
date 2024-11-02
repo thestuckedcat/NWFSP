@@ -53,7 +53,7 @@ namespace PARAMETERS {
 			max_gen = 2000;
 			job_num = 20;
 			machine_num = 5;
-			pop_size = 100;
+			pop_size = 10;
 			scenario_num = 20;
 			Threshold = 0;
 		}

@@ -1,0 +1,200 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\NWFSP\\NWFSP\\NWFSP_PM\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|E:\\NWFSP\\NWFSP\\NWFSP_PM\\Local_search.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|solutionrelative:Local_search.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|E:\\NWFSP\\NWFSP\\NWFSP_PM\\solution.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|solutionrelative:solution.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|E:\\NWFSP\\NWFSP\\NWFSP_PM\\Global_Search.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|solutionrelative:Global_Search.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|E:\\NWFSP\\NWFSP\\NWFSP_PM\\Bi-population.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|solutionrelative:Bi-population.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|E:\\NWFSP\\NWFSP\\NWFSP_PM\\Initialization.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|solutionrelative:Initialization.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|E:\\NWFSP\\NWFSP\\NWFSP_PM\\Swarm_Intelligence.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|solutionrelative:Swarm_Intelligence.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|E:\\NWFSP\\NWFSP\\NWFSP_PM\\Parameter.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|solutionrelative:Parameter.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|E:\\NWFSP\\NWFSP\\NWFSP_PM\\Cooperative.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|solutionrelative:Cooperative.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|E:\\NWFSP\\NWFSP\\NWFSP_PM\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 182,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Initialization.h",
+              "DocumentMoniker": "E:\\NWFSP\\NWFSP\\NWFSP_PM\\Initialization.h",
+              "RelativeDocumentMoniker": "Initialization.h",
+              "ToolTip": "E:\\NWFSP\\NWFSP\\NWFSP_PM\\Initialization.h",
+              "RelativeToolTip": "Initialization.h",
+              "ViewState": "AgIAAOgAAAAAAAAAAAAAAPoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-01T15:40:41.992Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Bi-population.h",
+              "DocumentMoniker": "E:\\NWFSP\\NWFSP\\NWFSP_PM\\Bi-population.h",
+              "RelativeDocumentMoniker": "Bi-population.h",
+              "ToolTip": "E:\\NWFSP\\NWFSP\\NWFSP_PM\\Bi-population.h",
+              "RelativeToolTip": "Bi-population.h",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-01T03:31:14.751Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "solution.h",
+              "DocumentMoniker": "E:\\NWFSP\\NWFSP\\NWFSP_PM\\solution.h",
+              "RelativeDocumentMoniker": "solution.h",
+              "ToolTip": "E:\\NWFSP\\NWFSP\\NWFSP_PM\\solution.h*",
+              "RelativeToolTip": "solution.h*",
+              "ViewState": "AgIAADcAAAAAAAAAAAAxwEYAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-10-31T17:46:51.524Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Parameter.h",
+              "DocumentMoniker": "E:\\NWFSP\\NWFSP\\NWFSP_PM\\Parameter.h",
+              "RelativeDocumentMoniker": "Parameter.h",
+              "ToolTip": "E:\\NWFSP\\NWFSP\\NWFSP_PM\\Parameter.h",
+              "RelativeToolTip": "Parameter.h",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAADMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-10-31T17:46:53Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 218,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Local_search.h",
+              "DocumentMoniker": "E:\\NWFSP\\NWFSP\\NWFSP_PM\\Local_search.h",
+              "RelativeDocumentMoniker": "Local_search.h",
+              "ToolTip": "E:\\NWFSP\\NWFSP\\NWFSP_PM\\Local_search.h",
+              "RelativeToolTip": "Local_search.h",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAhwHgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-01T14:29:44.626Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Global_Search.h",
+              "DocumentMoniker": "E:\\NWFSP\\NWFSP\\NWFSP_PM\\Global_Search.h",
+              "RelativeDocumentMoniker": "Global_Search.h",
+              "ToolTip": "E:\\NWFSP\\NWFSP\\NWFSP_PM\\Global_Search.h",
+              "RelativeToolTip": "Global_Search.h",
+              "ViewState": "AgIAAJMAAAAAAAAAAAAnwKUAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-01T08:41:28.607Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Swarm_Intelligence.h",
+              "DocumentMoniker": "E:\\NWFSP\\NWFSP\\NWFSP_PM\\Swarm_Intelligence.h",
+              "RelativeDocumentMoniker": "Swarm_Intelligence.h",
+              "ToolTip": "E:\\NWFSP\\NWFSP\\NWFSP_PM\\Swarm_Intelligence.h",
+              "RelativeToolTip": "Swarm_Intelligence.h",
+              "ViewState": "AgIAAFcAAAAAAAAAAAAAAGMAAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-01T03:31:21.399Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Cooperative.h",
+              "DocumentMoniker": "E:\\NWFSP\\NWFSP\\NWFSP_PM\\Cooperative.h",
+              "RelativeDocumentMoniker": "Cooperative.h",
+              "ToolTip": "E:\\NWFSP\\NWFSP\\NWFSP_PM\\Cooperative.h",
+              "RelativeToolTip": "Cooperative.h",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAEkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-01T15:17:49.155Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "41641790-616b-4ea2-9fd5-2934984042b2",
+        "Display": 0,
+        "X": 748,
+        "Y": 223,
+        "Width": 800,
+        "Height": 600,
+        "WindowState": 0
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "main.cpp",
+              "DocumentMoniker": "E:\\NWFSP\\NWFSP\\NWFSP_PM\\main.cpp",
+              "RelativeDocumentMoniker": "main.cpp",
+              "ToolTip": "E:\\NWFSP\\NWFSP\\NWFSP_PM\\main.cpp",
+              "RelativeToolTip": "main.cpp",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABcAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-01T03:28:53.866Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

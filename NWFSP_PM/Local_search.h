@@ -72,6 +72,65 @@ namespace LOCAL_SEARCH {
 			}
 		}
 
+		
+		//for bi-population
+		void operator()(POP<Solution_type>& pop,
+			const std::vector<int>& chosen_solution,
+			std::vector<std::vector<float>>	q_table,
+			int currentGeneration,
+			PARAMETERS::Params& param) {
+
+			for (int i = 0; i < chosen_solution.size(); i++) {
+				pop.population[chosen_solution[i]].calculate_transition_scenario_makespan(param);
+			}
+
+			// sort and repartition
+			std::sort(pop.population.begin(), pop.population.end(), [](auto& a, auto& b) {
+				SCENARIO_INFO aa = a.SI_trans.is_empty() ? a.SI : a.SI_trans;
+				SCENARIO_INFO bb = b.SI_trans.is_empty() ? b.SI : b.SI_trans;
+
+				return aa.bad_scenario_num < bb.bad_scenario_num;
+			});
+			/*
+			// FOR DEBUGGING
+			{
+				std::cout << "The BSN after sort is ";
+				for (auto i : pop.population) {
+					if (i.SI_trans.is_empty()) {
+						std::cout << i.SI.bad_scenario_num << " ";
+					}
+					else {
+						std::cout << "trans" << i.SI_trans.bad_scenario_num << " ";
+					}
+
+				}
+				std::cout << std::endl;
+			}
+			*/
+
+
+			int demarcation = int(param.beta * param.pop_size);
+			
+			auto it = std::upper_bound(pop.population.begin(), pop.population.end(), demarcation,
+				[](const int demarcation, const auto& individual) {
+					SCENARIO_INFO scenario = individual.SI_trans.is_empty() ? individual.SI : individual.SI_trans;
+					return demarcation < scenario.bad_scenario_num;
+				});
+
+
+			// [idx,end] for LN
+			// [0,idx) for  UN
+			int idx = std::distance(pop.population.begin(), it);
+			
+
+
+
+
+
+
+
+		}
+
 
 
 		/*

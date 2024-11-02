@@ -67,6 +67,13 @@ struct SCENARIO_INFO {
 		}
 		return *this;
 	}
+
+	bool is_empty() const {
+		if (threshold) {
+			return false;
+		}
+		return true;
+	}
 private:
 	void Update_INFO() {
 		ASSERT_MSG(threshold > 0, "threshold setup wrongly");
@@ -258,6 +265,7 @@ public:
 			os << i << " ";
 		}
 		os << std::endl << std::endl;
+
 		os << "***************************\n";
 
 		return os;
@@ -346,9 +354,9 @@ public:
 		scenario_sequence_info_trans.clear();
 		for (int i = 0; i < param.scenario_num; i++) {
 			scenario_sequence_info_trans.push_back(Decode_sequence(param.scenario[i], trans_sequence));
-			scenario_makespan[i] = scenario_sequence_info_trans[i][param.machine_num - 1][param.job_num - 1].end;
+			trans_scenario_makespan[i] = scenario_sequence_info_trans[i][param.machine_num - 1][param.job_num - 1].end;
 		}
-		SI_trans = SCENARIO_INFO(scenario_makespan, param.Threshold);
+		SI_trans = SCENARIO_INFO(trans_scenario_makespan, param.Threshold);
 	}
 	/*
 	void calculate_transition_scenario_makespan(std::vector<std::vector<std::vector<int>>>& scenario_processing_time, int Threshold) {
@@ -390,6 +398,20 @@ public:
 		return false;
 	}
 
+
+	//clear all trans information 
+	void clear() {
+		
+		trans_scenario_makespan.clear();
+		trans_sequence.clear();
+		scenario_sequence_info_trans.clear();
+		SI_trans.threshold = 0;
+	}
+
+
+
+
+
 };
 
 
@@ -416,6 +438,14 @@ public:
 		:job_num{ num_jobs }, machine_num{ _num_machines }, pop_size{ _pop_size }, scenario_processing_time{ scen },Threshold{_Threshold}
 	{
 		
+	}
+
+	Population(PARAMETERS::Params& param) {
+		job_num = param.job_num;
+		machine_num = param.machine_num;
+		pop_size = param.pop_size;
+		scenario_processing_time = param.scenario;
+		Threshold = param.Threshold;
 	}
 
 	Population(const Population& rhs) {
@@ -445,7 +475,6 @@ public:
 		return *this;
 	}
 
-
 	// void Improve solution
 	void Improve_pop(std::vector<int>& chosen_solution) {
 		int count = 0;
@@ -467,6 +496,19 @@ public:
 		os << "----------------------------------------------------------------------------------------\n";
 
 		return os;
+	}
+
+	void print_current_state(const std::vector<int>& chosen_solution) const {
+		for (auto index : chosen_solution) {
+			PRINT_VECTOR(population[index].sequence, "原始的序列");
+			PRINT_VECTOR(population[index].trans_sequence, "修改后的序列");
+		}
+	}
+
+	void clear() {
+		for (auto i : population) {
+			i.clear();
+		}
 	}
 };
 

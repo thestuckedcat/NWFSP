@@ -4,7 +4,7 @@
 #include<utility>
 #include"myutils.h"
 #include<set>
-
+#include"Parameter.h"
 
 
 
@@ -25,6 +25,16 @@ namespace GLOBAL_SEARCH {
 				}
 			}
 		}
+		void operator()(const POP<Solution_type>& pop , std::vector<int>& chosen_idx, const PARAMETERS::Params& param)
+		{
+			chosen_idx.clear();
+			for (int i = 0; i < param.pop_size; i++) {
+				if (generate_random_float() < param.selection_rate) {
+					chosen_idx.push_back(i);
+				}
+			}
+		}
+
 	};
 
 
@@ -55,6 +65,29 @@ namespace GLOBAL_SEARCH {
 				pop.population[chosen_solution[i]].trans_sequence = std::move(Cans);
 			}
 		}
+
+		void operator()(POP<Solution_type>& pop, const std::vector<int>& chosen_solution, const PARAMETERS::Params& param) {
+			// for each chosen solution
+			for (int i = 0; i < chosen_solution.size(); i++) {
+				// randomly pick another parent
+				int other = generate_random_int(0, param.pop_size);
+
+				while (other == chosen_solution[i]) {
+					other = generate_random_int(0, param.pop_size);
+				}
+
+				// do crossover, obtain new solution
+				std::vector<int> Cans = crossover(pop.population[chosen_solution[i]], pop.population[other]);
+
+				// Set transition solution
+				pop.population[chosen_solution[i]].trans_sequence = std::move(Cans);
+			}
+		}
+
+
+		
+
+		
 
 	private:
 		/*
@@ -121,6 +154,15 @@ namespace GLOBAL_SEARCH {
 		void operator()(POP<Solution_type>& pop, const std::vector<int>& chosen_solution) {
 			for (int i = 0; i < chosen_solution.size(); i++) {
 				ASSERT_MSG(!pop.population[chosen_solution[i]].trans_sequence.empty(), 
+					"transition sequence donot exist");
+
+				pop.population[chosen_solution[i]].trans_sequence = mutation(pop.population[chosen_solution[i]].trans_sequence);
+			}
+		}
+
+		void operator()(POP<Solution_type>& pop, const std::vector<int>& chosen_solution, const PARAMETERS::Params& param) {
+			for (int i = 0; i < chosen_solution.size(); i++) {
+				ASSERT_MSG(!pop.population[chosen_solution[i]].trans_sequence.empty(),
 					"transition sequence donot exist");
 
 				pop.population[chosen_solution[i]].trans_sequence = mutation(pop.population[chosen_solution[i]].trans_sequence);
