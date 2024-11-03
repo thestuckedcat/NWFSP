@@ -74,6 +74,16 @@ struct SCENARIO_INFO {
 		}
 		return true;
 	}
+
+	void clear() {
+		scenario_makespan.clear();
+		threshold = 0;
+		bad_scenario_num = -1;
+		bad_scenario_set.clear();
+		worst_scenario_id = -1;
+		worst_scenario_makespan = -1;
+		Penalty_of_TBS = -1;
+	}
 private:
 	void Update_INFO() {
 		ASSERT_MSG(threshold > 0, "threshold setup wrongly");
@@ -385,6 +395,7 @@ public:
 	// Elite solution
 	// Trans tran_seq to current_seq
 	bool improve_solution() {
+		//std::cout << "the origin TBS is " << SI.Penalty_of_TBS << " and the trans TBS is " << SI_trans.Penalty_of_TBS << std::endl;
 		if (SI_trans.Penalty_of_TBS >= 0 && SI.Penalty_of_TBS > SI_trans.Penalty_of_TBS) {
 			ASSERT_MSG(SI_trans.Penalty_of_TBS >= 0, "Trans penalty is not calculated");
 			ASSERT_MSG(SI.Penalty_of_TBS >= 0, "Origin penalty is not calculated");
@@ -398,6 +409,13 @@ public:
 		return false;
 	}
 
+	void improve_trans(NWFSP_Solution& rhs) {
+		this->trans_scenario_makespan = std::move(rhs.scenario_makespan);
+		this->trans_sequence = std::move(rhs.sequence);
+		this->scenario_sequence_info_trans = std::move(rhs.scenario_sequence_info);
+		this->SI_trans = rhs.SI;
+	}
+
 
 	//clear all trans information 
 	void clear() {
@@ -405,7 +423,7 @@ public:
 		trans_scenario_makespan.clear();
 		trans_sequence.clear();
 		scenario_sequence_info_trans.clear();
-		SI_trans.threshold = 0;
+		SI_trans.clear();
 	}
 
 
@@ -486,11 +504,29 @@ public:
 		//std::cout << count << " of " << population.size() << " has been improved" << std::endl;
 	}
 
+	void Improve_pop() {
+		int count = 0;
+		int idx = 0;
+		for (auto& a : population) {
+			if (a.SI_trans.is_empty()) {
+				//std::cout << "solution " << idx++ << "is not chosen" << std::endl;
+				continue;
+			}
+			if (a.improve_solution()) {
+				//std::cout << "solution " << idx++ << "is chosen and updated" << std::endl;
+				count++;
+			}
+			else {
+				//std::cout << "solution " << idx++ << "is chosen but not updated" << std::endl;
+			}
+		}
+	}
+
 
 
 	friend std::ostream& operator<<(std::ostream& os, const Population& pop) {
 		os << "--------------------------------------------------------------------------------------\n";
-		for (auto i : pop.population) {
+		for (auto& i : pop.population) {
 			os << i << std::endl;
 		}
 		os << "----------------------------------------------------------------------------------------\n";
@@ -499,14 +535,14 @@ public:
 	}
 
 	void print_current_state(const std::vector<int>& chosen_solution) const {
-		for (auto index : chosen_solution) {
+		for (auto &index : chosen_solution) {
 			PRINT_VECTOR(population[index].sequence, "原始的序列");
 			PRINT_VECTOR(population[index].trans_sequence, "修改后的序列");
 		}
 	}
 
 	void clear() {
-		for (auto i : population) {
+		for (auto &i : population) {
 			i.clear();
 		}
 	}

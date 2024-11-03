@@ -43,6 +43,20 @@
     std::cout << "*******************************************************\n";\
 }while(0)
 
+#define PRINT_2VECTOR(vec,str) do {\
+    std::cout << "*******************************************************\n";\
+    std::cout << (str) << std::endl;\
+    for (const auto& elem : (vec)) {\
+        for(const auto& i : elem)\
+        {\
+            std::cout << " " << i; \
+        }\
+        std::cout << std::endl;\
+    }\
+    std::cout << std::endl;\
+    std::cout << "*******************************************************\n";\
+}while(0)
+
 
 
 

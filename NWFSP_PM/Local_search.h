@@ -57,6 +57,7 @@ struct graphNode {
 namespace LOCAL_SEARCH {
 	template<template<typename> class POP, typename Solution_type>
 	struct CRITICAL_PATH{
+		/*
 		void operator()(POP<Solution_type>& pop, 
 						const std::vector<int>& chosen_solution,
 						SCENARIO_STRUCTURE &SS,
@@ -71,13 +72,14 @@ namespace LOCAL_SEARCH {
 				UN_structure(pop, chosen_solution);
 			}
 		}
+		*/
 
 		
 		//for bi-population
 		void operator()(POP<Solution_type>& pop,
 			const std::vector<int>& chosen_solution,
-			std::vector<std::vector<float>>	q_table,
-			int currentGeneration,
+			std::vector<std::vector<float>>& q_table,
+			const int currentGeneration,
 			PARAMETERS::Params& param) {
 
 			for (int i = 0; i < chosen_solution.size(); i++) {
@@ -121,21 +123,141 @@ namespace LOCAL_SEARCH {
 			// [idx,end] for LN
 			// [0,idx) for  UN
 			int idx = std::distance(pop.population.begin(), it);
-			
+			std::pair<int, int> range_UN{ 0,idx };
+			std::pair<int, int> range_LN{ idx,param.pop_size };
+			/*
+			// FOR DEBUGGING: IF LN FUNCTION PROPERLY
+			{
+				for (int i = 0; i < param.pop_size; i++) {
+					if (pop.population[i].trans_sequence.empty()) {
+						std::cout << "**************************\n this solution is not chosen \n *************************************\n";
+						continue;
+					}
+					std::cout << "The " << i << "-th solution is:\n";
+					for (int j = 0; j < param.job_num; j++) {
+						std::cout << pop.population[i].trans_sequence[j] << " ";
+					}
+					std::cout << "\n and its objective is" << pop.population[i].SI_trans.Penalty_of_TBS << "\n\n";
+				}
+			}
+			*/
+
+			LN_structure(pop, range_LN, q_table, currentGeneration, param);
+			/*
+			// FOR DEBUGGING: IF LN FUNCTION PROPERLY
+			//PRINT_2VECTOR(q_table, "q_Table is as follow");
+
+			{
+				for (int i = 0; i < param.pop_size; i++) {
+					if (pop.population[i].trans_sequence.empty()) {
+						std::cout << "**************************\n this solution is not chosen \n *************************************\n";
+						continue;
+					}
+					std::cout << "The " << i << "-th solution after LN is:\n";
+					for (int j = 0; j < param.job_num; j++) {
+						std::cout << pop.population[i].trans_sequence[j] << " ";
+					}
+
+					std::cout << "\n and its objective is" << pop.population[i].SI_trans.Penalty_of_TBS << "\n\n";
+				}
+			}
+			*/
+			UN_structure(pop, range_UN, param);
 
 
+			/*
+				此时population中应该包含了如下信息
 
-
-
-
-
+				未被选中的个体仅有SI和sequence的相关信息
+				被选中的个体还拥有SI_trans和trans_sequence的相关信息
+			*/
 		}
 
+
+		void LN_structure(	POP<Solution_type>& pop,
+							const std::pair<int, int>& range,
+							std::vector<std::vector<float>>& q_table,
+							const int gen,
+							PARAMETERS::Params& param) 
+		{
+			if (range.second <= range.first) {
+				return;
+			}
+			std::vector<std::vector<int>> neighbors;
+
+			if (gen == 0) {
+				for (int i = range.first; i < range.second ; i++) {
+				
+					//if is not be chosen 
+					if (pop.population[i].SI_trans.is_empty()) {
+						continue;
+					}
+					Solution_type& target = pop.population[i];
+					int chosen_scenario = generate_random_int(0, param.scenario_num);
+					neighbors = Find_Neighbor_by_CriticalPath(target, chosen_scenario, param);
+
+					find_best_neighbor_and_update_q_table(neighbors, pop, target, q_table, gen, 0, chosen_scenario, param);
+				}
+			}
+			else {
+				for (int i = range.first; i < range.second; i++) {
+					
+					if (pop.population[i].SI_trans.is_empty()) {
+						continue;
+					}
+					
+
+					float epsilon = generate_random_float();
+					Solution_type& target = pop.population[i];
+
+					int state = target.last_state;
+					int action_scen;
+
+					// choose best scenario
+					if (epsilon > 1 / std::sqrt(gen + 1)) {
+						auto it = std::max_element(q_table[state].begin(), q_table[state].end());
+						action_scen = std::distance(q_table[state].begin(), it);
+						ASSERT_MSG(action_scen >= 0 && action_scen < param.scenario_num, "Wrong action chosen");
+					}
+					// randomly choose
+					else {
+						action_scen = generate_random_int(0, param.scenario_num);
+					}
+
+
+					neighbors = Find_Neighbor_by_CriticalPath(target, action_scen, param);
+
+					find_best_neighbor_and_update_q_table(neighbors, pop, target, q_table, gen, state, action_scen, param);
+				}
+			}
+		}
+
+		void UN_structure(	POP<Solution_type>& pop,
+							const std::pair<int, int>& range,
+							PARAMETERS::Params& param)
+		{
+			
+			for (int i = range.first; i < range.second; i++) {
+				Solution_type& target = pop.population[i];
+
+				if (target.SI_trans.is_empty()) {
+					continue;
+				}
+
+				std::unordered_set<std::vector<int>> neighbors;
+				for (auto& a : target.SI_trans.bad_scenario_set) {
+					auto temp = Find_Neighbor_by_CriticalPath(target, a, param);
+					neighbors.insert(temp.begin(), temp.end());
+				}
+				find_best_neighbor(neighbors, target, param);
+			}
+		}
 
 
 		/*
 			Use q_learning choose neighbor for this solution
 		*/
+		/*
 		void LN_structure(	POP<Solution_type>& pop,
 							const std::vector<int> chosen_solution,
 							std::vector<std::vector<float>>& q_table,
@@ -197,7 +319,7 @@ namespace LOCAL_SEARCH {
 				}
 			}
 		}
-
+		*/
 		/*
 			generate neighbor in each scenario
 
@@ -237,8 +359,7 @@ namespace LOCAL_SEARCH {
 			Set Operation Relation in a Graph
 		*/
 		std::vector<std::vector<graphNode>> Set_graph(	std::vector<int>& seq,
-														std::vector<std::vector<node>>& seq_info,
-														std::vector<std::vector<int>>& pt) {
+														std::vector<std::vector<node>>& seq_info) {
 
 			int machine_num = seq_info.size();
 			int job_num = seq_info[0].size();
@@ -376,15 +497,17 @@ namespace LOCAL_SEARCH {
 
 			OUTPUT: The potential neighbor set
 		*/
-		std::vector<std::vector<int>> Find_Neighbor_by_CriticalPath(Solution_type& target, std::vector<std::vector<int>> &pt)
+		std::vector<std::vector<int>> Find_Neighbor_by_CriticalPath(Solution_type& target, int scenario_idx, PARAMETERS::Params& param)
 		{
+
 			ASSERT_MSG(!target.trans_sequence.empty(), "Trans sequence is empty");
 			
-			// calculate transition_sequence info of target, update the sequence_info to current trans_sequence
-			target.get_transition_makespan(pt);
 
+			std::vector<std::vector<int>>& pt = param.scenario[scenario_idx];
+			
 
-			std::vector<std::vector<graphNode>> Graph = Set_graph(target.trans_sequence, target.sequence_info_trans, pt);
+			std::vector<std::vector<graphNode>> Graph = Set_graph(	target.trans_sequence, 
+																	target.scenario_sequence_info_trans[scenario_idx]);
 
 			std::stack<std::pair<int, int>> path = find_Operations_in_Critical_Path(Graph);
 			ASSERT_MSG(!path.empty(), "Path is empty");
@@ -402,7 +525,7 @@ namespace LOCAL_SEARCH {
 			
 
 			// contribution[i]: contribution of job on pos i
-			std::vector<int> contribution(target.job_num, 0);
+			std::vector<int> contribution(param.job_num, 0);
 			// if current machine is less than past machine ,a negative weight is given 
 			for (int i = 0; i < path_.size(); i++) {
 				int weight = 1;
@@ -413,7 +536,7 @@ namespace LOCAL_SEARCH {
 				}
 
 				// judge if this operation should be ignored
-				if (i - 1 >= 0 && i + 1 < target.job_num) {
+				if (i - 1 >= 0 && i + 1 < param.job_num) {
 					if (path_[i].first == path_[i - 1].first && path_[i].first == path_[i + 1].first + 1) {
 						weight = 0;
 					}
@@ -645,42 +768,26 @@ namespace LOCAL_SEARCH {
 		
 		*/
 		
-		void find_best_neighbor_and_update_q_table(	std::vector<std::vector<int>> neighbor4,
+		void find_best_neighbor_and_update_q_table(	std::vector<std::vector<int>> neighbors,
 													POP<Solution_type> &pop,	
 													Solution_type &target,	
 													std::vector<std::vector<float>>& q_table, 
 													int g, 
-													int max_gen,
 													int current_state,
-													int current_action) 
+													int current_action,
+													PARAMETERS::Params& param) 
 		{
-			Solution_type temp1(neighbor4[0]);
-			Solution_type temp2(neighbor4[1]);
-			Solution_type temp3(neighbor4[2]);
-			Solution_type temp4(neighbor4[3]);
-
-			temp1.calculate_scenario_makespan(pop.scenario_processing_time, pop.Threshold);
-			temp2.calculate_scenario_makespan(pop.scenario_processing_time, pop.Threshold);
-			temp3.calculate_scenario_makespan(pop.scenario_processing_time, pop.Threshold);
-			temp4.calculate_scenario_makespan(pop.scenario_processing_time, pop.Threshold);
-			target.calculate_transition_scenario_makespan(pop.scenario_processing_time, pop.Threshold);
-
-			// Find best neighbor
-			if (temp1.SI.Penalty_of_TBS < target.SI_trans.Penalty_of_TBS) {
-				target.SI_trans = temp1.SI;
-				target.trans_sequence = temp1.sequence;
+			std::vector<Solution_type> neighborSolution;
+			// All the generated neighbor
+			for (auto& s : neighbors) {
+				neighborSolution.emplace_back(s);
+				neighborSolution.rbegin()->calculate_scenario_makespan(param);
 			}
-			if (temp2.SI.Penalty_of_TBS < target.SI_trans.Penalty_of_TBS) {
-				target.SI_trans = temp2.SI;
-				target.trans_sequence = temp2.sequence;
-			}
-			if (temp3.SI.Penalty_of_TBS < target.SI_trans.Penalty_of_TBS) {
-				target.SI_trans = temp3.SI;
-				target.trans_sequence = temp3.sequence;
-			}
-			if (temp4.SI.Penalty_of_TBS < target.SI_trans.Penalty_of_TBS) {
-				target.SI_trans = temp4.SI;
-				target.trans_sequence = temp4.sequence;
+			// Judge if the neighbor is better than the solution after global search
+			for (auto& s : neighborSolution) {
+				if (s.SI.Penalty_of_TBS < target.SI_trans.Penalty_of_TBS) {
+					target.improve_trans(s);
+				}
 			}
 
 
@@ -731,17 +838,14 @@ namespace LOCAL_SEARCH {
 			For UN structure
 		*/
 		void find_best_neighbor(std::unordered_set<std::vector<int>>& neighbors,
-								POP<Solution_type> &pop,
-								Solution_type& target) 
+								Solution_type& target,
+								PARAMETERS::Params& param) 
 		{
-			target.calculate_transition_scenario_makespan(pop.scenario_processing_time, pop.Threshold);
-
 			for (auto& nei : neighbors) {
 				Solution_type temp(nei);
-				temp.calculate_scenario_makespan(pop.scenario_processing_time, pop.Threshold);
+				temp.calculate_scenario_makespan(param);
 				if (temp.SI.Penalty_of_TBS < target.SI_trans.Penalty_of_TBS) {
-					target.SI_trans = temp.SI;
-					target.trans_sequence = temp.sequence;
+					target.improve_trans(temp);
 				}
 			}
 		}

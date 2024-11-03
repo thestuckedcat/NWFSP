@@ -50,7 +50,7 @@ namespace PARAMETERS {
 
 			selection_rate = 0.5;
 
-			max_gen = 2000;
+			max_gen = 10000;
 			job_num = 20;
 			machine_num = 5;
 			pop_size = 10;
