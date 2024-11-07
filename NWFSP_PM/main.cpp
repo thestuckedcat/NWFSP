@@ -4,29 +4,61 @@
 #include"Parameter.h"
 int main() {
 	/*
-	const int max_gen = 2000;
-	const int job_num = 20;
-	const int machine_num = 5;
-	const int pop_size = 100;
-	const int Threshold = 2020;
-	const int scenario_num = 20;
+			alpha = 0.1;
+			gamma = 0.9;
+			beta = 0.5;
 
+			selection_rate = 0.5;
 
-	Memetic<NWFSP_Solution, Population> test1(	max_gen,
-												job_num,
-												machine_num,
-												pop_size,
-												Threshold,
-												scenario_num);
-	test1.LN_UN_comparison();
+			max_gen = 10000;
+			job_num = 20;
+			machine_num = 5;
+			pop_size = 10;
+			scenario_num = 20;
+			Threshold = 0;
 	*/
 
-	PARAMETERS::Params param = PARAMETERS::Params();
+	PARAMETERS::Params param = PARAMETERS::Params(0.2, 0.1, 0.9, 0, 0, 2000, 20, 5, 100, 20);
 	param.generate_scenario();
 
-	Bipopulation_memetic<NWFSP_Solution, Population> test1(param);
 
-	test1.framework();
+
+	// beta = 0
+	Bipopulation_memetic<NWFSP_Solution, Population> test1(param,"pureLN");
+	test1.run();
+
+
+	
+	// beta = 0.2
+	param.beta = 0.2;
+	Bipopulation_memetic<NWFSP_Solution, Population> test2(param, "beta02");
+	test2.run();
+
+	// beta = 0.4
+	param.beta = 0.4;
+	Bipopulation_memetic<NWFSP_Solution, Population> test3(param, "beta04");
+	test3.run();
+
+	// beta = 0.6
+	param.beta = 0.6;
+	Bipopulation_memetic<NWFSP_Solution, Population> test6(param, "beta06");
+	test6.run();
+	// beta = 0.8
+	param.beta = 0.8;
+	Bipopulation_memetic<NWFSP_Solution, Population> test7(param, "beta08");
+	test7.run();
+	// beta = 1
+	param.beta = 1;
+	Bipopulation_memetic<NWFSP_Solution, Population> test4(param, "pureUN");
+	test4.run();
+
+
+
+	// dynamic_beta
+	param.use_dynamic_beta = true;
+	Bipopulation_memetic<NWFSP_Solution, Population> test5(param, "dynamicBeta");
+	test5.run();
+	
 
 
 

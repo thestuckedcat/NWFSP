@@ -17,7 +17,6 @@
 #define GetCurrentDir getcwd
 #endif
 
-
 #define PRINT_CURRENT_LOCATION() \
     std::cout << "File: " << __FILE__ << ", Line: " << __LINE__ << std::endl;
 
@@ -150,5 +149,25 @@ void Extract_to_File(const std::vector<int>& data, std::string filename) {
     outfile.close();
 
 }
+
+
+
+
+
+struct node {
+    int begin;
+    int end;
+    int job_id;
+    node() {};
+    node(int _b, int pt, int _id)
+        : begin{ _b }, job_id(_id) {
+        end = begin + pt;
+    }
+
+    void update(int push) {
+        begin += push;
+        end += push;
+    }
+};
 
 

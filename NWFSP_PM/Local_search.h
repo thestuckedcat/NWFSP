@@ -27,7 +27,7 @@ std::vector<int> generate_unique_random_numbers(int n, int m) {
 	std::shuffle(numbers.begin(), numbers.end(), gen);
 
 	// pick first m elements
-	return std::vector<int>(numbers.begin(), numbers.begin() + m);
+	return std::vector<int>(numbers.begin(), numbers.begin() + m); 
 }
 
 
@@ -111,7 +111,7 @@ namespace LOCAL_SEARCH {
 			*/
 
 
-			int demarcation = int(param.beta * param.pop_size);
+			int demarcation = int(param.beta * param.scenario_num);
 			
 			auto it = std::upper_bound(pop.population.begin(), pop.population.end(), demarcation,
 				[](const int demarcation, const auto& individual) {
@@ -123,6 +123,32 @@ namespace LOCAL_SEARCH {
 			// [idx,end] for LN
 			// [0,idx) for  UN
 			int idx = std::distance(pop.population.begin(), it);
+
+			if(param.beta) // not work for pureLN
+			{
+				bool have_job = false;
+				for (int i = 0; i < idx; i++) {
+					if (!pop.population[i].SI_trans.is_empty()) {
+						have_job = true;
+						break;
+					}
+				}
+
+				if (!have_job) {
+					//if no job is handled by UN, force to align one
+
+					for (int i = idx; i < param.pop_size; i++) {
+						if (!pop.population[i].SI_trans.is_empty()) {
+							idx = i + 1;
+							break;
+						}
+					}
+				}
+
+			}
+			
+			
+
 			std::pair<int, int> range_UN{ 0,idx };
 			std::pair<int, int> range_LN{ idx,param.pop_size };
 			/*
@@ -246,6 +272,7 @@ namespace LOCAL_SEARCH {
 
 				std::unordered_set<std::vector<int>> neighbors;
 				for (auto& a : target.SI_trans.bad_scenario_set) {
+				//for(int a = 0; a < param.scenario_num; a++){
 					auto temp = Find_Neighbor_by_CriticalPath(target, a, param);
 					neighbors.insert(temp.begin(), temp.end());
 				}
@@ -343,7 +370,6 @@ namespace LOCAL_SEARCH {
 					std::unordered_set<std::vector<int>> neighbors;
 					for (auto& a : pop.population[solution_index].SI.bad_scenario_set)
 					{
-
 						auto temp = Find_Neighbor_by_CriticalPath(pop.population[solution_index], pop.scenario_processing_time[a]);
 						neighbors.insert(temp.begin(), temp.end());
 
@@ -400,12 +426,14 @@ namespace LOCAL_SEARCH {
 
 		*/
 
+
+		
+		// recursive version
 		bool dfs(const std::vector<std::vector<graphNode>>& Graph,
 			int machine_id, int pos,
 			std::stack<std::pair<int, int>>& path,
 			std::vector<std::vector<bool>>& visited) {
 			//std::cout << "当前在" << machine_id << "  " << pos << std::endl;
-
 			// if found
 			if (machine_id == Graph.size() - 1 && pos == Graph[0].size() - 1) {
 				//std::cout << "找到了终点" << std::endl;
@@ -432,6 +460,68 @@ namespace LOCAL_SEARCH {
 			path.pop();
 			return false;
 		}
+		
+		/*
+		// 定义栈元素结构，包含当前节点及其下一个待访问的邻居索引
+		struct StackElement {
+			int machine_id;
+			int pos;
+			size_t next_neighbor_idx; // 下一个待访问的邻居索引
+		};
+
+		// 非递归DFS函数
+		bool dfs(const std::vector<std::vector<graphNode>>& Graph,
+						 int start_machine_id, int start_pos,
+						 std::stack<std::pair<int, int>>& path,
+						 std::vector<std::vector<bool>>& visited) {
+			// 初始化遍历栈，并将起始节点压入栈中
+			std::stack<StackElement> traversalStack;
+			traversalStack.push(StackElement{start_machine_id, start_pos, 0});
+
+			while (!traversalStack.empty()) {
+				StackElement& current = traversalStack.top();
+				int machine_id = current.machine_id;
+				int pos = current.pos;
+
+				// 如果当前节点尚未被访问
+				if (!visited[machine_id][pos]) {
+					visited[machine_id][pos] = true;
+					path.push({machine_id, pos});
+            
+					// 检查是否到达终点
+					if (machine_id == Graph.size() - 1 && pos == Graph[0].size() - 1) {
+						return true;
+					}
+				}
+
+				// 获取当前节点的邻居列表
+				const auto& neighbors = Graph[machine_id][pos].neighbor;
+
+				// 如果还有未访问的邻居，继续遍历
+				if (current.next_neighbor_idx < neighbors.size()) {
+					// 获取下一个邻居
+					auto neighbor = neighbors[current.next_neighbor_idx];
+					current.next_neighbor_idx++; // 更新下一个待访问的邻居索引
+
+					int next_machine_id = neighbor.first;
+					int next_pos = neighbor.second;
+
+					// 如果邻居未被访问，压入遍历栈
+					if (!visited[next_machine_id][next_pos]) {
+						traversalStack.push(StackElement{next_machine_id, next_pos, 0});
+					}
+				} else {
+					// 当前节点的所有邻居都已访问，回溯
+					traversalStack.pop();
+					path.pop();
+				}
+			}
+
+			// 如果栈空且未找到终点，返回失败
+			return false;
+		}
+		*/
+		
 
 		/*
 			find blocks through operations in Critical path
@@ -756,6 +846,53 @@ namespace LOCAL_SEARCH {
 
 
 		/*
+			THIS IS AN OPERATOR
+
+			Find job with least contribution, swap with the largetst block's first job
+		*/
+
+
+		/*
+			THIS IS AN OPERATOR
+
+			Find job with least contribution, swap with the largest block's last job
+		*/
+
+
+
+		/*
+			THIS IS AN OPERATOR
+
+			Find job with most contribution, swap with the largest block's first job
+		*/
+
+
+		/*
+			THIS IS AN OPERATOR
+
+			Find job with most contribution, swap with the largest block's last job
+		*/
+
+
+		/*dd
+			THIS IS AN OPERATOR
+
+			Find largest block, swap its first and last job
+		*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+		/*
 			Find best neighbor, decode
 
 			update next state
@@ -825,11 +962,9 @@ namespace LOCAL_SEARCH {
 			}
 
 			ASSERT_MSG(nextstate >= 0, "Wrong next state calculated");
-			const float alpha = 0.1;
-			const float gamma = 0.9;
 			// update Q-table
-			q_table[current_state][current_action] = (1 - alpha) * q_table[current_state][current_action] +
-				alpha * (reward + gamma * (*std::max_element(q_table[nextstate].begin(), q_table[nextstate].end())));
+			q_table[current_state][current_action] = (1 - param.alpha) * q_table[current_state][current_action] +
+				param.alpha * (reward + param.gamma * (*std::max_element(q_table[nextstate].begin(), q_table[nextstate].end())));
 			
 			target.last_state = nextstate;
 		}

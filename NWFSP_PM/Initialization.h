@@ -43,6 +43,7 @@ namespace INITIALIZATION {
 				i.calculate_scenario_makespan(param);
 				pop.population.push_back(i);
 			}
+			ASSERT_MSG(pop.population.size() == param.pop_size, "Not enough individuals generated");
 		}
 
 		/*
