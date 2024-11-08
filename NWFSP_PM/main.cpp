@@ -18,7 +18,7 @@ int main() {
 			Threshold = 0;
 	*/
 
-	PARAMETERS::Params param = PARAMETERS::Params(0.2, 0.1, 0.9, 0, 0, 2000, 20, 5, 100, 20);
+	PARAMETERS::Params param = PARAMETERS::Params(0.2, 0.1, 0.9, 0, 0, 2000, 100, 5, 100, 20);
 	param.generate_scenario();
 
 

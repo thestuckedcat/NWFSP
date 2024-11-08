@@ -24,84 +24,124 @@ struct graphNode {
 };
 
 
-
-
-/*
-	find Neighbor for Solution target
-
-	INPUT:  Solution, processing_time
-
-	OUTPUT: The potential neighbor set
-*/
-std::vector<std::vector<int>> CriticalPath_based_neighbor(NWFSP_Solution& target, int scenario_idx, PARAMETERS::Params& param)
-{
-
-	ASSERT_MSG(!target.trans_sequence.empty(), "Trans sequence is empty");
-
-
-	std::vector<std::vector<int>>& pt = param.scenario[scenario_idx];
-
-
-	std::vector<std::vector<graphNode>> Graph = CP::Set_graph(target.trans_sequence, target.scenario_sequence_info_trans[scenario_idx]);
-
-	std::vector<std::pair<int, int>> path = CP::get_critical_path(Graph);
-	ASSERT_MSG(!path.empty(), "Path is empty");
-
-	// find blocks with (machine_id, pos) in it
-	std::vector<std::vector<std::pair<int, int>>> blocks = CP::find_blocks(path);
-
-
-	// calculate each pos's contribution, find largest block, contribution, contribution is defined as weighted sum of critical operation
-	// contribution[i]: contribution of job on pos i
-	std::vector<int> contribution = CP::calculate_contribution();
-	// if current machine is less than past machine ,a negative weight is given 
-	for (int i = 0; i < path.size(); i++) {
-		int weight = 1;
-
-		// judge if this operation is reverse
-		if (i > 0 && path[i].first < path[i - 1].first) {
-			weight = -1;
-		}
-
-		// judge if this operation should be ignored
-		if (i - 1 >= 0 && i + 1 < param.job_num) {
-			if (path[i].first == path[i - 1].first && path[i].first == path[i + 1].first + 1) {
-				weight = 0;
-			}
-
-			if (path[i].first == path[i - 1].first - 1 && path[i].first == path[i + 1].first) {
-				weight = 0;
-			}
-		}
-
-		int job_id = target.trans_sequence[path[i].second];
-		contribution[path[i].second] += weight * pt[job_id][path[i].first];
-	}
-
-
-
-
-
-	// INSERT: least contribution job insert into largest block
-	std::vector<int> neighbor1 = OPERATORS::INSERT(blocks, contribution, target.trans_sequence);
-
-	// SWAP: Largest block both side swap
-	std::vector<int> neighbor2;
-	std::vector<int> neighbor3;
-	std::tie(neighbor2, neighbor3) = OPERATORS::SWAP(blocks, target.trans_sequence);
-
-	// INSERTBLOCK: a least contribution block is inserted into
-	std::vector<int> neighbor4 = OPERATORS::INSERTBLOCK(blocks, target.trans_sequence);
-
-	return { neighbor1, neighbor2, neighbor3, neighbor4 };
-
+namespace CP {
+	std::vector<std::vector<graphNode>> Set_graph(std::vector<int>&, std::vector<std::vector<node>>&);
+	bool get_critical_path(const std::vector<std::vector<graphNode>>&, std::vector<std::pair<int, int>>&);
+	std::vector<std::vector<int>> find_blocks(const std::vector<std::pair<int, int>>&);
+	void calculate_contribution(std::vector<int>&, const std::vector<std::pair<int, int>>&, std::vector<std::vector<int>>&, NWFSP_Solution&);
+}
+namespace OPERATORS{
+	std::vector<int> SWAP(std::vector<int>& seq, int a, int b);
 }
 
 
+
+// SINGLE SCENARIO NEIGHBORHOOD
+namespace NEIGHBOUR {
+
+	/*
+		find Neighbor for Solution target
+
+		INPUT:  Solution, processing_time
+
+		OUTPUT: The potential neighbor set
+	*/
+	std::vector<std::vector<int>> CriticalPath_based_neighbor(NWFSP_Solution& target, int scenario_idx, PARAMETERS::Params& param)
+	{
+
+		ASSERT_MSG(!target.trans_sequence.empty(), "Trans sequence is empty");
+
+		// set alias
+		std::vector<std::vector<int>>& pt = param.scenario[scenario_idx];
+
+		/*
+			set the accessible relation between operations
+			J_i[j]: Graph[i][j] stands for the accessible relation of operation of ith job in sequence on machine i
+		*/
+		std::vector<std::vector<graphNode>> Graph = CP::Set_graph(target.trans_sequence, target.scenario_sequence_info_trans[scenario_idx]);
+
+		/*
+			The combination of operations on critical path
+			path[i].first stands for machine_id , path[i].second stands for pos
+			Guarantee the beginning time of path[i]
+		*/
+		std::vector<std::pair<int, int>> path;
+		bool pathexisted = CP::get_critical_path(Graph, path);
+		ASSERT_MSG(pathexisted, "Path is not found");
+
+		// find blocks with job_pos in it
+		// block[i][j] the ith block's jth job, which is represented by its job_pos
+		std::vector<std::vector<int>> blocks = CP::find_blocks(path);
+
+		if (blocks.size() == 0) {
+			std::cout << " Current generation do not have block, turn to random pick" << std::endl;
+			const int mx = param.job_num;
+
+			std::vector<int> b(mx);
+			for (int i = 0; i < mx; i++) {
+				b[i] = i;
+			}
+
+			blocks.push_back(b);
+		}
+
+
+
+
+
+		// calculate each pos's contribution, find largest block, contribution, contribution is defined as weighted sum of critical operation
+		// contribution[i]: contribution of job on pos i
+		std::vector<int> contribution;
+		CP::calculate_contribution(contribution, path, param.scenario[scenario_idx], target);
+
+
+		
+
+
+		/*
+			Related Info for Operators
+		*/
+		std::vector<int> blockcontribution(blocks.size(), 0);
+		for (int i = 0; i < blocks.size(); i++) {
+			for (int j = 0; j < blocks[i].size(); j++) {
+				blockcontribution[i] += contribution[blocks[i][j]];
+			}
+		}
+		int max_block_id = std::distance(blockcontribution.begin(), std::max_element(blockcontribution.begin(), blockcontribution.end()));
+		int l = *blocks[max_block_id].begin();// max block's leftmost
+		int r = *blocks[max_block_id].rbegin();// max block's rightmost
+		int b = std::distance(	contribution.begin(),
+								std::max_element(contribution.begin(), contribution.end()));// most contribution job
+		int w = std::distance(	contribution.begin(), 
+								std::min_element(contribution.begin(), contribution.end()));// least contribution job
+
+
+
+		/*
+			OPERATORS:
+		*/
+		std::vector<std::vector<int>> neighbors;
+		std::vector<int>& currentseq = target.trans_sequence;
+		neighbors.push_back(OPERATORS::SWAP(currentseq, l, r));
+		neighbors.push_back(OPERATORS::SWAP(currentseq, l, b));
+		neighbors.push_back(OPERATORS::SWAP(currentseq, l, w));
+		neighbors.push_back(OPERATORS::SWAP(currentseq, r, b));
+		neighbors.push_back(OPERATORS::SWAP(currentseq, r, w));
+		neighbors.push_back(OPERATORS::SWAP(currentseq, b, w));
+
+		//std::cout << std::endl;
+		return neighbors;
+
+	}
+}
+
+
+
+// for critical path calculation tools
 namespace CP {
 	/*
 			Set Operation Relation in a Graph
-		*/
+	*/
 	std::vector<std::vector<graphNode>> Set_graph(std::vector<int>& seq,
 		std::vector<std::vector<node>>& seq_info) {
 
@@ -144,106 +184,179 @@ namespace CP {
 
 	*/
 
-	bool dfs(const std::vector<std::vector<graphNode>>& Graph,
-		int machine_id, int pos,
-		std::stack<std::pair<int, int>>& path,
-		std::vector<std::vector<bool>>& visited) {
-		//std::cout << "当前在" << machine_id << "  " << pos << std::endl;
+	bool get_critical_path(const std::vector<std::vector<graphNode>>& Graph, std::vector<std::pair<int,int>>& path) {
+		const int target_machine = Graph.size() - 1;
+		const int target_job_pos = Graph[0].size() - 1;
 
-		// if found
-		if (machine_id == Graph.size() - 1 && pos == Graph[0].size() - 1) {
-			//std::cout << "找到了终点" << std::endl;
-			path.push({ machine_id, pos });
-			return true;
-		}
+		path.clear();
+		path.reserve(Graph.size() * Graph[0].size());
+
+		std::vector<int> neighborIdx;// Where has the neighbor been accessed to
+		neighborIdx.reserve(Graph.size() * Graph[0].size());
+
+		// visited[i][j]: Is operation J_i[j] been visited
+		std::vector<std::vector<bool>> visited(Graph.size(), std::vector<bool>(Graph[0].size(), false));
 
 
-		visited[machine_id][pos] = true;
-		path.push({ machine_id, pos });
 
-		// find all neighbors of this node
-		for (const auto& neighbor : Graph[machine_id][pos].neighbor) {
-			int next_machine_id = neighbor.first;
-			int next_pos = neighbor.second;
+		// Initialize
+		path.push_back(std::make_pair<int,int>(0, 0));
+		neighborIdx.push_back(0);
+		visited[0][0] = true;
 
-			if (!visited[next_machine_id][next_pos]) {
-				if (dfs(Graph, next_machine_id, next_pos, path, visited)) {
-					return true;
+		while (!path.empty()) {
+			int current_machine = path.rbegin()->first;
+			int current_pos = path.rbegin()->second;
+			// search the last
+
+			// if it is target
+			if (current_machine == target_machine && current_pos == target_job_pos) {
+				return true;
+			}
+
+			
+			// it is not target, push its neighbor into path
+			int current_idx = path.size()-1;
+			
+
+			
+			auto& nei = Graph[current_machine][current_pos].neighbor;
+			if (neighborIdx[current_idx] < nei.size()) {
+				
+				int nxtmachine = nei[neighborIdx[current_idx]].first;
+				int nxtpos = nei[neighborIdx[current_idx]].second;
+				
+				if (!visited[nxtmachine][nxtpos])
+				{
+					path.push_back(nei[neighborIdx[current_idx]]);
+					neighborIdx.push_back(0);
+					visited[nxtmachine][nxtpos] = true;
 				}
+				neighborIdx[current_idx]++;
+				
+			}
+			else {
+				// the neighbor of current operation has been all visited, and path not found
+
+				visited[current_machine][current_pos] = false;
+				path.pop_back();
+				neighborIdx.pop_back();
+
+
 			}
 		}
-		// if no return occurs, means this node is unavailable
-		path.pop();
+
 		return false;
 	}
 
 	/*
 		find blocks through operations in Critical path
+
+		return vector<vector<int>> where stands for the unit of blocks
+
+		a block contains a set of continuous index of job_pos 
 	*/
-	std::vector<std::vector<std::pair<int, int>>> find_blocks(std::vector<std::pair<int, int>> old_path) {
-		std::vector<std::vector<std::pair<int, int>>> blocks;
+	std::vector<std::vector<int>> find_blocks(const std::vector<std::pair<int, int>>& path) {
+		std::vector<std::vector<int>> blocks;
 
 		// get block
-		int last_machine_id = old_path.top().first;
-		std::vector<std::pair<int, int>> block;
+		std::vector<int> curblock;
+		curblock.push_back(0);
 
-		for (; !old_path.empty();)
+		for (int i = 1;i < path.size(); i++)
 		{
-			std::pair<int, int> this_operation = old_path.top();
-
-			if (this_operation.first == last_machine_id) {
-				block.push_back(this_operation);
-
+			// 在同一个机器上
+			if (path[i].first == path[i-1].first) {
+				curblock.push_back(i);
 			}
 			else {
-				blocks.push_back(block);
-				block.clear();
-				block.push_back(this_operation);
-				last_machine_id = this_operation.first;
+				blocks.push_back(curblock);
+				curblock.clear();
 
+				// 不在同一个机器上
+				while (i < path.size() && path[i].first != path[i - 1].first) {
+					i++;
+				}
+				// 此时i指向的是下一个block的开头, 此时分为两种情况，即为反向路径上去的，和正向路径下来的，
+				// 区别在于反向路径上去的block不应算上i-1，而正向路径下去的应该算上i-1
+				if (i - 2 >= 0 && path[i - 1].first > path[i - 2].first) {
+					curblock.push_back(i-1);
+				}
+				curblock.push_back(i);
 			}
-			old_path.pop();
 
 		}
-		if (!block.empty()) {
-			blocks.push_back(block);
-		}
-
-
-
 
 		ASSERT_MSG(!blocks.empty(), "No block found");
+
+
+		blocks.erase(
+			std::remove_if(blocks.begin(), blocks.end(), [](const std::vector<int>& innerVec) {
+				return innerVec.size() < 2;
+				}),
+			blocks.end()
+		);
+
+
+		for (int i = 0; i < blocks.size(); i++) {
+			for (int j = 0; j < blocks[i].size(); j++) {
+				blocks[i][j] = path[blocks[i][j]].second;
+			}
+		}
+
+		
 		return blocks;
 	}
 
 	/*
-		find Operations in Critical Path
+		calculate contribution of each operation
+
+		and transfer to contribution of each job
+
+		contribution[i] stands for the contribution of job on path i
 	*/
-	std::vector<std::pair<int, int>> get_critical_path(const std::vector<std::vector<graphNode>>& Graph) {
-		// Find shortest path, it should return several blocks with (machine_id,job_id) pair in it
-		int machine_num = Graph.size();
-		int job_num = Graph[0].size();
-		// machine,pos
-		std::stack<std::pair<int, int>> path;
-		std::vector<std::vector<bool>> visited(machine_num, std::vector<bool>(job_num, false));
-		// dfs find a path
-		bool found = dfs(Graph, 0, 0, path, visited);
-		ASSERT_MSG(found, "Critical Path not Found");
+	void calculate_contribution(std::vector<int>& ans,
+								const std::vector<std::pair<int,int>>& path, 
+								std::vector<std::vector<int>> &scenario, 
+								NWFSP_Solution& target) 
+	{
+		ASSERT_MSG(!target.trans_sequence.empty(), "The solution do not have trans sequence");
+
+		std::vector<int> contribution(path.size(), 0);
+
+		for (int i = 0; i < path.size(); i++) {
+			int current_job = target.trans_sequence[path[i].second];
+			int current_machine = path[i].first;
 
 
-		std::vector<std::pair<int, int>> path_(path.size());
-		int i = path.size() - 1;
-		while (i >= 0 && !path.empty()) {
-			path_[i--] = path.top();
-			path.pop();
+			contribution[i] = scenario[current_job][current_machine];
+			if (i - 1 >= 0 && path[i - 1].first > path[i].first) {
+				// 上一个机器的机器号大于当前，意味着当前为reverse
+				contribution[i] *= -1;
+			}
+			if ((i-1 >= 0 && path[i-1].first == path[i].first) && (i + 1 < path.size() && path[i + 1].first < path[i].first)) {
+				// corner 1
+				// 上一个operation的机器现在的一样，但是下一个operation的机器号小于当前，这意味着这是一个转折点
+				contribution[i] = 0;
+			}
+			if ((i-1 >= 0 && path[i-1].first > path[i].first) && (i+1 < path.size() && path[i+1].first == path[i].first)) {
+				// corner 2
+				// 上一个operation的机器大于当前，但是下一个operation的机器等于当前，这意味着这是一个转折点
+				contribution[i] = 0;
+			}
 		}
-		return path_;
+		ans = std::vector<int>(target.sequence.size(),0);
+
+
+		for (int i = 0; i < contribution.size(); i++) {
+			int currentjobPos = path[i].second;
+			ans[currentjobPos] += contribution[i];
+		}
+
 	}
 
+	
 
-	std::vector<int> calculate_contribution() {
-
-	}
 
 }
 
@@ -253,6 +366,25 @@ namespace CP {
 
 
 namespace OPERATORS {
+	/*
+		THIS IS AN OPERATOR
+
+		INPUT: sequence, swap target(a,b)
+
+		OUTPUT: swapped sequence
+	
+	*/
+	std::vector<int> SWAP(std::vector<int>& seq, int a, int b) {
+		std::vector<int> newseq = seq;
+		std::swap(newseq[a], newseq[b]);
+		return newseq;
+	}
+
+
+
+
+
+
 	/*
 	THIS IS AN OPERATOR
 

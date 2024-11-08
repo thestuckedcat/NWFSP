@@ -135,6 +135,7 @@
     <ClInclude Include="Initialization.h" />
     <ClInclude Include="Local_search.h" />
     <ClInclude Include="OverloadTools.h" />
+    <ClInclude Include="ParallelRunner.h" />
     <ClInclude Include="Parameter.h" />
     <ClInclude Include="SingleSceanrioStructure.h" />
     <ClInclude Include="Swarm_Intelligence.h" />

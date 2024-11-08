@@ -13,6 +13,7 @@
 # include<tuple>
 # include<set>
 # include"OverloadTools.h"
+# include "SingleSceanrioStructure.h"
 std::vector<int> generate_unique_random_numbers(int n, int m) {
 	assert(m <= n);
 	// n is range, m is needed number
@@ -31,7 +32,7 @@ std::vector<int> generate_unique_random_numbers(int n, int m) {
 }
 
 
-
+/*
 // input: A solution
 // output: A new solution
 struct graphNode {
@@ -50,6 +51,7 @@ struct graphNode {
 		neighbor.push_back(std::make_pair(m, pos));
 	}
 };
+*/
 
 
 
@@ -220,7 +222,7 @@ namespace LOCAL_SEARCH {
 					}
 					Solution_type& target = pop.population[i];
 					int chosen_scenario = generate_random_int(0, param.scenario_num);
-					neighbors = Find_Neighbor_by_CriticalPath(target, chosen_scenario, param);
+					neighbors = NEIGHBOUR::CriticalPath_based_neighbor(target, chosen_scenario, param);
 
 					find_best_neighbor_and_update_q_table(neighbors, pop, target, q_table, gen, 0, chosen_scenario, param);
 				}
@@ -251,7 +253,7 @@ namespace LOCAL_SEARCH {
 					}
 
 
-					neighbors = Find_Neighbor_by_CriticalPath(target, action_scen, param);
+					neighbors = NEIGHBOUR::CriticalPath_based_neighbor(target, action_scen, param);
 
 					find_best_neighbor_and_update_q_table(neighbors, pop, target, q_table, gen, state, action_scen, param);
 				}
@@ -273,7 +275,8 @@ namespace LOCAL_SEARCH {
 				std::unordered_set<std::vector<int>> neighbors;
 				for (auto& a : target.SI_trans.bad_scenario_set) {
 				//for(int a = 0; a < param.scenario_num; a++){
-					auto temp = Find_Neighbor_by_CriticalPath(target, a, param);
+					//auto temp = Find_Neighbor_by_CriticalPath(target, a, param);
+					auto temp = NEIGHBOUR::CriticalPath_based_neighbor(target, a, param);
 					neighbors.insert(temp.begin(), temp.end());
 				}
 				find_best_neighbor(neighbors, target, param);
@@ -357,7 +360,7 @@ namespace LOCAL_SEARCH {
 				b. do UN search for part of solution selected by SELECTION
 
 				c. do UN search for part of solutions in population
-		*/
+		
 		void UN_structure(	POP<Solution_type>& pop,
 							const std::vector<int> &chosen_solution)
 		{
@@ -379,6 +382,7 @@ namespace LOCAL_SEARCH {
 				}
 			}
 		}
+		*/
 
 	private:
 		/*
@@ -574,6 +578,30 @@ namespace LOCAL_SEARCH {
 			std::vector<std::vector<bool>> visited(machine_num, std::vector<bool>(job_num, false));
 			// dfs find a path
 			bool found = dfs(Graph, 0, 0, path, visited);
+
+			/*
+			// check if new dfs is correct 
+			
+			
+
+			{
+				std::vector<std::pair<int, int>> newpath;
+				bool foundnew = CP::dfs(Graph, newpath);
+				if (path.size() != newpath.size())
+					std::cout << "新的dfs不对" << std::endl;
+
+
+				std::stack<std::pair<int, int>> tempStack = path;
+				for (auto it = newpath.rbegin(); it != newpath.rend(); it++) {
+					if (*it != tempStack.top()) {
+						std::cout << "新的dfs内容不对" << std::endl;
+					}
+					tempStack.pop();
+				}
+			}
+			*/
+
+
 			ASSERT_MSG(found, "Critical Path not Found");
 
 			return path;
@@ -604,6 +632,7 @@ namespace LOCAL_SEARCH {
 			// find blocks with (machine_id, pos) in it
 			std::vector<std::vector<std::pair<int, int>>> blocks = find_blocks(path);
 
+			
 
 			// calculate each pos's contribution, find largest block, contribution, contribution is defined as weighted sum of critical operation
 			std::vector<std::pair<int, int>> path_(path.size());
@@ -905,7 +934,7 @@ namespace LOCAL_SEARCH {
 		
 		*/
 		
-		void find_best_neighbor_and_update_q_table(	std::vector<std::vector<int>> neighbors,
+		void find_best_neighbor_and_update_q_table(	std::vector<std::vector<int>> &neighbors,
 													POP<Solution_type> &pop,	
 													Solution_type &target,	
 													std::vector<std::vector<float>>& q_table, 

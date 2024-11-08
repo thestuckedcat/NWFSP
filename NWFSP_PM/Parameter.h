@@ -203,7 +203,7 @@ namespace PARAMETERS {
 
 			// 计算 makespan 的平均值，并乘以 90% 得到 threshold
 			double average_makespan = makespan_sum / (scenario_num * sequence_count);
-			return average_makespan * 0.965;
+			return average_makespan * 0.96;
 		}
 
 
