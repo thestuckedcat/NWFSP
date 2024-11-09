@@ -15,6 +15,8 @@ class Bipopulation_memetic {
 	POP<Solution_Type> pop;
 	long long total_time;
 	std::vector<int> time_record;
+
+	DataLogger logger;
 public:
 	std::vector<int> Best;
 	/*
@@ -23,28 +25,29 @@ public:
 
 	*/
 	void print_algorithm_info() {
-		std::cout << "***************************************************** " << std::endl;
-		std::cout << "The parameter setting is " << std::endl;
-		std::cout << "alpha = \t" << param.alpha << std::endl;
-		std::cout << "gamma = \t" << param.gamma << std::endl;
-		std::cout << "selection_rate = \t" << param.selection_rate << std::endl;
-		std::cout << "theta = \t" << param.theta << std::endl;
-		std::cout << "beta = \t" << param.beta << std::endl;
-		std::cout << "max_gen =\t " << param.max_gen << std::endl;
-		std::cout << "machine_num =\t " << param.machine_num << std::endl;
-		std::cout << "pop_size =\t " << param.pop_size << std::endl;
-		std::cout << "Threshold =\t " << param.Threshold << std::endl;
-		std::cout << "scenario_num =\t " << param.scenario_num << std::endl;
-		std::cout << "***************************************************** " << std::endl << std::endl;
+		logger << "*****************************************************\n";
+		logger << "The parameter setting is " << std::endl;
+		logger << "alpha = \t" << param.alpha << std::endl;
+		logger << "gamma = \t" << param.gamma << std::endl;
+		logger << "selection_rate = \t" << param.selection_rate << std::endl;
+		logger << "theta = \t" << param.theta << std::endl;
+		logger << "beta = \t" << param.beta << std::endl;
+		logger << "max_gen =\t " << param.max_gen << std::endl;
+		logger << "machine_num =\t " << param.machine_num << std::endl;
+		logger << "pop_size =\t " << param.pop_size << std::endl;
+		logger << "Threshold =\t " << param.Threshold << std::endl;
+		logger << "scenario_num =\t " << param.scenario_num << std::endl;
+		logger << "***************************************************** " << std::endl << std::endl;
 	}
 	
 
-	Bipopulation_memetic(PARAMETERS::Params _param, std::string _str) {
+	Bipopulation_memetic(PARAMETERS::Params _param, std::string _str):logger(_str) {
 		ASSERT_MSG(!_param.scenario.empty(),"没有场景加工时间信息");
 		ASSERT_MSG(_param.Threshold,"没有计算场景Threshold");
 		param = _param;
 		str = _str;
 		total_time = 0;
+
 		print_algorithm_info();
 	}
 	/*
@@ -60,27 +63,30 @@ public:
 		POP<Solution_Type> pop(param);
 		
 		framework(pop);
-		std::cout << "Total time: " << total_time << " ms" << std::endl;
+		logger << "Total time: " << total_time << " ms" << std::endl;
 
 
 
 		// print q table
-		PRINT_2VECTOR(q_table, "state");
+		PRINT_2VECTOR_LOGGER(q_table, "state", logger);
 
+		logger << "The population bad scenario num is" << std::endl;
 		for (int i = 0; i < param.pop_size; i++) {
-			std::cout << pop.population[i].SI.bad_scenario_num << " ";
+			logger << pop.population[i].SI.bad_scenario_num << " ";
 		}
-		std::cout << std::endl;
+		logger << std::endl;
 
 		std::vector<int> best_makespans = std::min_element(pop.population.begin(), pop.population.end(), [](auto& a, auto& b) {
 			return a.SI.Penalty_of_TBS < b.SI.Penalty_of_TBS;
 			})->scenario_makespan;
 
-		PRINT_VECTOR(best_makespans, "best makespan is as follow");
-		Extract_to_File(time_record, str + "-timerecord");
-		PRINT_VECTOR(Best, str);
+		PRINT_VECTOR_LOGGER(best_makespans, "best makespan is as follow", logger);
+		Extract_to_File(time_record, str, "timerecord");
+		PRINT_VECTOR_LOGGER(Best, str, logger);
 		str += "-" + std::to_string(total_time);
-		Extract_to_File(Best, str);
+		Extract_to_File(Best, str, "trend");
+
+		std::cout << str << " improvement finished" << std::endl;
 		
 	}
 

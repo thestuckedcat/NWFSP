@@ -2,6 +2,7 @@
 #include"solution.h"
 #include"Bi-population.h"
 #include"Parameter.h"
+#include "ParallelRunner.h"
 int main() {
 	/*
 			alpha = 0.1;
@@ -18,52 +19,100 @@ int main() {
 			Threshold = 0;
 	*/
 
-	PARAMETERS::Params param = PARAMETERS::Params(0.2, 0.1, 0.9, 0, 0, 2000, 100, 5, 100, 20);
+	/*
+
+	PARAMETERS::Params param = PARAMETERS::Params(0.2, 0.1, 0.9, 0, 0, 2000, 20, 5, 100, 20);
 	param.generate_scenario();
 
 
-
-	// beta = 0
-	Bipopulation_memetic<NWFSP_Solution, Population> test1(param,"pureLN");
-	test1.run();
+	{
+		// beta = 0
+		Bipopulation_memetic<NWFSP_Solution, Population> test1(param, "pureLN");
+		test1.run();
+	}
 
 
 	
-	// beta = 0.2
+	{
+		// beta = 0.2
+		param.beta = 0.2;
+		Bipopulation_memetic<NWFSP_Solution, Population> test2(param, "beta02");
+		test2.run();
+	}
+
+	{
+		// beta = 0.4
+		param.beta = 0.4;
+		Bipopulation_memetic<NWFSP_Solution, Population> test3(param, "beta04");
+		test3.run();
+	}
+
+	{
+		// beta = 0.6
+		param.beta = 0.6;
+		Bipopulation_memetic<NWFSP_Solution, Population> test6(param, "beta06");
+		test6.run();
+	}
+	{
+		// beta = 0.8
+		param.beta = 0.8;
+		Bipopulation_memetic<NWFSP_Solution, Population> test7(param, "beta08");
+		test7.run();
+	}
+	{
+		// beta = 1
+		param.beta = 1;
+		Bipopulation_memetic<NWFSP_Solution, Population> test4(param, "pureUN");
+		test4.run();
+	}
+
+
+
+	{
+		// dynamic_beta
+		param.use_dynamic_beta = true;
+		Bipopulation_memetic<NWFSP_Solution, Population> test5(param, "dynamicBeta");
+		test5.run();
+	}
+	*/
+
+
+
+
+	// 参数配置
+	PARAMETERS::Params param = PARAMETERS::Params(0.2, 0.1, 0.9, 0, 0, 10, 20, 5, 100, 20);
+	param.generate_scenario();
+
+	// Bind Assigner to TaskQueue
+	const int num_threads = 24; 
+	TaskQueue task_queue(num_threads);
+	TaskAssigner dispatcher(task_queue);
+
+	// run 20 times for each task
+	const int run_count = 20;
+
+	// 分配任务
+	dispatcher.assign_tasks(param, "pureLN-20job5machine", run_count);
+
 	param.beta = 0.2;
-	Bipopulation_memetic<NWFSP_Solution, Population> test2(param, "beta02");
-	test2.run();
+	dispatcher.assign_tasks(param, "beta02-20job5machine", run_count);
 
-	// beta = 0.4
 	param.beta = 0.4;
-	Bipopulation_memetic<NWFSP_Solution, Population> test3(param, "beta04");
-	test3.run();
+	dispatcher.assign_tasks(param, "beta04-20job5machine", run_count);
 
-	// beta = 0.6
 	param.beta = 0.6;
-	Bipopulation_memetic<NWFSP_Solution, Population> test6(param, "beta06");
-	test6.run();
-	// beta = 0.8
+	dispatcher.assign_tasks(param, "beta06-20job5machine", run_count);
+
 	param.beta = 0.8;
-	Bipopulation_memetic<NWFSP_Solution, Population> test7(param, "beta08");
-	test7.run();
-	// beta = 1
+	dispatcher.assign_tasks(param, "beta08-20job5machine", run_count);
+
 	param.beta = 1;
-	Bipopulation_memetic<NWFSP_Solution, Population> test4(param, "pureUN");
-	test4.run();
+	dispatcher.assign_tasks(param, "pureUN-20job5machine", run_count);
 
-
-
-	// dynamic_beta
-	param.use_dynamic_beta = true;
-	Bipopulation_memetic<NWFSP_Solution, Population> test5(param, "dynamicBeta");
-	test5.run();
+	// wait for all tasks done
+	task_queue.wait_for_completion();
 	
 
-
-
-	
-
-
+	std::cout << "ALL JOBS DONE\n";
 
 }

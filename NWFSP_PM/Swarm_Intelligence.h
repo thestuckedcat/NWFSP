@@ -160,7 +160,7 @@ public:
 			std::cout << Pop_t.population[i].SI.bad_scenario_num << " ";
 		}
 		std::cout << std::endl;
-		Extract_to_File(Best, str);
+		Extract_to_File(Best, str, "trend");
 	}
 };
 
