@@ -30,7 +30,7 @@ public:
 		logger << "alpha = \t" << param.alpha << std::endl;
 		logger << "gamma = \t" << param.gamma << std::endl;
 		logger << "selection_rate = \t" << param.selection_rate << std::endl;
-		logger << "theta = \t" << param.theta << std::endl;
+		logger << "epsilon = \t" << param.epsilon << std::endl;
 		logger << "beta = \t" << param.beta << std::endl;
 		logger << "max_gen =\t " << param.max_gen << std::endl;
 		logger << "machine_num =\t " << param.machine_num << std::endl;
@@ -98,12 +98,14 @@ public:
 		INITIALIZATION::SCENARIO_NEH_DOUBLE<POP,Solution_Type>()(param, pop);
 		//std::cout << pop << std::endl;
 		for (int g = 0; g < param.max_gen; g++) {
-			
+			if (param.is_cpu_terminated && total_time >= param.cpu_terminate_time) {
+				logger << "Terminated generation is " << g << std::endl;
+				break;
+			}
+
 			auto start = std::chrono::high_resolution_clock::now();
 
-			if (param.use_dynamic_beta) {
-				param.beta = (float)(g + 1) / param.max_gen;
-			}
+
 			pop.clear();
 			chosen_solution_index.clear();
 			GLOBAL_SEARCH::SELECTION<POP,Solution_Type>()(pop, chosen_solution_index, param);
@@ -125,7 +127,7 @@ public:
 			auto end = std::chrono::high_resolution_clock::now();
 			std::chrono::duration<double, std::milli> elapsed = end - start;
 			total_time += elapsed.count();
-			time_record.push_back(elapsed.count());
+			time_record.push_back(total_time);
 			//-----------------------------------------------------
 
 			int best = std::min_element(pop.population.begin(), pop.population.end(), [](auto& a, auto& b) {

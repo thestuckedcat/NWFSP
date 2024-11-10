@@ -242,7 +242,7 @@ namespace LOCAL_SEARCH {
 					int action_scen;
 
 					// choose best scenario
-					if (epsilon > 1 / std::sqrt(gen + 1)) {
+					if (epsilon > param.epsilon) {
 						auto it = std::max_element(q_table[state].begin(), q_table[state].end());
 						action_scen = std::distance(q_table[state].begin(), it);
 						ASSERT_MSG(action_scen >= 0 && action_scen < param.scenario_num, "Wrong action chosen");

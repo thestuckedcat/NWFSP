@@ -7,7 +7,7 @@
 #include <numeric>
 #include <random>
 #include <algorithm>
-
+#include <climits>
 
 
 namespace PARAMETERS {
@@ -17,10 +17,10 @@ namespace PARAMETERS {
 		// for Q-table
 		float alpha;
 		float gamma;
+		float epsilon;
 		// selection rate
 		float selection_rate;
-		// trace decay rate
-		float theta;
+		
 
 		/*
 			Population partition rate based on BSN
@@ -37,10 +37,11 @@ namespace PARAMETERS {
 		int Threshold;
 		int scenario_num;
 		std::vector<std::vector<std::vector<int>>> scenario;
-		bool use_dynamic_beta;
-		Params(float _selection_rate, float _alpha, float _gamma, float _theta, float _beta,
+		bool is_cpu_terminated;
+		int cpu_terminate_time;
+		Params(float _selection_rate, float _alpha, float _gamma, float _epsilon, float _beta,
 			int _max_gen, int _job_num, int _machine_num, int _pop_size, int _scenario_num)
-			:alpha{ _alpha }, gamma{ _gamma }, theta{ _theta }, beta{ _beta } {
+			:alpha{ _alpha }, gamma{ _gamma }, epsilon{ _epsilon }, beta{ _beta } {
 			selection_rate = _selection_rate;
 			max_gen = _max_gen;
 			job_num = _job_num;
@@ -48,7 +49,7 @@ namespace PARAMETERS {
 			pop_size = _pop_size;
 			scenario_num = _scenario_num;
 			Threshold = 0;
-			use_dynamic_beta = false;
+			is_cpu_terminated = false;
 		}
 		Params() {
 			alpha = 0.1;
@@ -56,14 +57,20 @@ namespace PARAMETERS {
 			beta = 0.5;
 
 			selection_rate = 0.5;
-
+			epsilon = 0.8;
 			max_gen = 10000;
 			job_num = 20;
 			machine_num = 5;
 			pop_size = 10;
 			scenario_num = 20;
 			Threshold = 0;
-			use_dynamic_beta = false;
+			is_cpu_terminated = false;
+		}
+
+		void set_to_cpu_terminate() {
+			is_cpu_terminated = true;
+			max_gen = INT_MAX;
+			cpu_terminate_time = machine_num * job_num * scenario_num * 40;
 		}
 
 		// scenario related
