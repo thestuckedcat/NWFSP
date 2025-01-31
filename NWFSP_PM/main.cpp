@@ -22,7 +22,7 @@ int main() {
 	TaskAssigner dispatcher(task_queue);
 	
 	// run 20 times for each task
-	int run_count = 40;
+	int run_count = 1;
 
 	//{
 	//	//std::vector<int> job{100,200 };

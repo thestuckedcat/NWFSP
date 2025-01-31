@@ -1,0 +1,402 @@
+﻿  main.cpp
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Parameter.h(212,26): warning C4244: “*=”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Parameter.h(488,27): warning C4244: “初始化”: 从“double”转换到“__int64”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Parameter.h(502,28): warning C4244: “初始化”: 从“__int64”转换到“double”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Parameter.h(573,28): warning C4244: “return”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\solution.h(93,36): warning C4244: “=”: 从“__int64”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\solution.h(110,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\solution.h(111,20): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\solution.h(163,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\solution.h(164,20): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\solution.h(233,15): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\solution.h(312,19): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\solution.h(313,15): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(144,20): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(147,9): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(149,9): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(204,55): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(218,25): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(263,15): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(292,22): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(319,43): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(334,51): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(335,51): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(359,19): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(360,15): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(399,43): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(399,28): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(400,46): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(400,28): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(431,20): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(466,43): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(466,28): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(467,46): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(467,28): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(498,20): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(685,60): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(690,22): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(774,22): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(786,22): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(798,60): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(806,60): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\SingleSceanrioStructure.h(818,49): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Local_search.h(589,12): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Local_search.h(658,12): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Local_search.h(722,12): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Local_search.h(766,20): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(158,33): warning C4244: “=”: 从“__int64”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+      C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(158,33):
+      模板实例化上下文(最早的实例化上下文)为
+          C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\ParallelRunner.h(56,62):
+          查看对正在编译的 类 模板 实例化“Bipopulation_memetic_version4<NWFSP_Solution,Population>”的引用
+          C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(124,7):
+          在编译 类 模板 成员函数“void Bipopulation_memetic_version4<NWFSP_Solution,Population>::framework(Population<NWFSP_Solution> &)”时
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(81,12):
+              请参阅 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::run" 中对 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::framework" 的第一个引用
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\ParallelRunner.h(57,20):
+              请参阅 "TaskQueue::run_task" 中对 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::run" 的第一个引用
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(201,54): warning C4244: “+=”: 从“_Rep”转换到“__int64”，可能丢失数据
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(201,54): warning C4244:         with
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(201,54): warning C4244:         [
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(201,54): warning C4244:             _Rep=double
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(201,54): warning C4244:         ]
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(205,26): warning C4244: “参数”: 从“__int64”转换到“_Ty”，可能丢失数据
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(205,26): warning C4244:         with
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(205,26): warning C4244:         [
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(205,26): warning C4244:             _Ty=int
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(205,26): warning C4244:         ]
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(213,19): warning C4244: “参数”: 从“__int64”转换到“_Ty”，可能丢失数据
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(213,19): warning C4244:         with
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(213,19): warning C4244:         [
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(213,19): warning C4244:             _Ty=int
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(213,19): warning C4244:         ]
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(164,33): warning C4244: “=”: 从“__int64”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+      C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(164,33):
+      模板实例化上下文(最早的实例化上下文)为
+          C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\ParallelRunner.h(51,62):
+          查看对正在编译的 类 模板 实例化“Bipopulation_memetic_version3<NWFSP_Solution,Population>”的引用
+          C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(130,7):
+          在编译 类 模板 成员函数“void Bipopulation_memetic_version3<NWFSP_Solution,Population>::framework(Population<NWFSP_Solution> &)”时
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(87,12):
+              请参阅 "Bipopulation_memetic_version3<NWFSP_Solution,Population>::run" 中对 "Bipopulation_memetic_version3<NWFSP_Solution,Population>::framework" 的第一个引用
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\ParallelRunner.h(52,20):
+              请参阅 "TaskQueue::run_task" 中对 "Bipopulation_memetic_version3<NWFSP_Solution,Population>::run" 的第一个引用
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(208,35): warning C4244: “+=”: 从“_Rep”转换到“__int64”，可能丢失数据
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(208,35): warning C4244:         with
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(208,35): warning C4244:         [
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(208,35): warning C4244:             _Rep=double
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(208,35): warning C4244:         ]
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(212,39): warning C4244: “参数”: 从“__int64”转换到“_Ty”，可能丢失数据
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(212,39): warning C4244:         with
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(212,39): warning C4244:         [
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(212,39): warning C4244:             _Ty=int
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(212,39): warning C4244:         ]
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(220,20): warning C4244: “参数”: 从“__int64”转换到“_Ty”，可能丢失数据
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(220,20): warning C4244:         with
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(220,20): warning C4244:         [
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(220,20): warning C4244:             _Ty=int
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(220,20): warning C4244:         ]
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Local_search.h(458,12): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+      C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Local_search.h(458,12):
+      模板实例化上下文(最早的实例化上下文)为
+          C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(130,7):
+          在编译 类 模板 成员函数“void Bipopulation_memetic_version3<NWFSP_Solution,Population>::framework(Population<NWFSP_Solution> &)”时
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(87,12):
+              请参阅 "Bipopulation_memetic_version3<NWFSP_Solution,Population>::run" 中对 "Bipopulation_memetic_version3<NWFSP_Solution,Population>::framework" 的第一个引用
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\ParallelRunner.h(52,20):
+              请参阅 "TaskQueue::run_task" 中对 "Bipopulation_memetic_version3<NWFSP_Solution,Population>::run" 的第一个引用
+          C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(197,59):
+          查看对正在编译的 类 模板 实例化“LS_Version1::CRITICAL_PATH_version1<POP,Solution_Type>”的引用
+          with
+          [
+              POP=Population,
+              Solution_Type=NWFSP_Solution
+          ]
+          C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Local_search.h(413,8):
+          在编译 类 模板 成员函数“void LS_Version1::CRITICAL_PATH_version1<POP,Solution_Type>::operator ()(Population<NWFSP_Solution> &,const std::vector<int,std::allocator<int>> &,PARAMETERS::Params &,int)”时
+          with
+          [
+              POP=Population,
+              Solution_Type=NWFSP_Solution
+          ]
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(197,61):
+              请参阅 "Bipopulation_memetic_version3<NWFSP_Solution,Population>::framework" 中对 "LS_Version1::CRITICAL_PATH_version1<POP,Solution_Type>::operator ()" 的第一个引用
+          with
+          [
+              POP=Population,
+              Solution_Type=NWFSP_Solution
+          ]
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v3.h(87,12):
+              请参阅 "Bipopulation_memetic_version3<NWFSP_Solution,Population>::run" 中对 "Bipopulation_memetic_version3<NWFSP_Solution,Population>::framework" 的第一个引用
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\ParallelRunner.h(52,20):
+              请参阅 "TaskQueue::run_task" 中对 "Bipopulation_memetic_version3<NWFSP_Solution,Population>::run" 的第一个引用
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Local_search.h(885,12): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+      C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Local_search.h(885,12):
+      模板实例化上下文(最早的实例化上下文)为
+          C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(124,7):
+          在编译 类 模板 成员函数“void Bipopulation_memetic_version4<NWFSP_Solution,Population>::framework(Population<NWFSP_Solution> &)”时
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(81,12):
+              请参阅 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::run" 中对 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::framework" 的第一个引用
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\ParallelRunner.h(57,20):
+              请参阅 "TaskQueue::run_task" 中对 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::run" 的第一个引用
+          C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(191,50):
+          查看对正在编译的 类 模板 实例化“LS_Version4::CRITICAL_PATH<POP,Solution_Type>”的引用
+          with
+          [
+              POP=Population,
+              Solution_Type=NWFSP_Solution
+          ]
+          C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Local_search.h(840,8):
+          在编译 类 模板 成员函数“void LS_Version4::CRITICAL_PATH<POP,Solution_Type>::operator ()(Population<NWFSP_Solution> &,const std::vector<int,std::allocator<int>> &,PARAMETERS::Params &,int)”时
+          with
+          [
+              POP=Population,
+              Solution_Type=NWFSP_Solution
+          ]
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(191,52):
+              请参阅 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::framework" 中对 "LS_Version4::CRITICAL_PATH<POP,Solution_Type>::operator ()" 的第一个引用
+          with
+          [
+              POP=Population,
+              Solution_Type=NWFSP_Solution
+          ]
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(81,12):
+              请参阅 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::run" 中对 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::framework" 的第一个引用
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\ParallelRunner.h(57,20):
+              请参阅 "TaskQueue::run_task" 中对 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::run" 的第一个引用
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Global_Search.h(208,45): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+      C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Global_Search.h(208,45):
+      模板实例化上下文(最早的实例化上下文)为
+          C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(187,47):
+          查看对正在编译的 类 模板 实例化“GLOBAL_SEARCH::MUTATION<POP,Solution_Type>”的引用
+          with
+          [
+              POP=Population,
+              Solution_Type=NWFSP_Solution
+          ]
+          C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Global_Search.h(206,20):
+          在编译 类 模板 成员函数“std::vector<int,std::allocator<int>> GLOBAL_SEARCH::MUTATION<POP,Solution_Type>::mutation(const std::vector<int,std::allocator<int>> &)”时
+          with
+          [
+              POP=Population,
+              Solution_Type=NWFSP_Solution
+          ]
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Global_Search.h(201,55):
+              请参阅 "GLOBAL_SEARCH::MUTATION<POP,Solution_Type>::operator ()" 中对 "GLOBAL_SEARCH::MUTATION<POP,Solution_Type>::mutation" 的第一个引用
+          with
+          [
+              POP=Population,
+              Solution_Type=NWFSP_Solution
+          ]
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(187,49):
+              请参阅 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::framework" 中对 "GLOBAL_SEARCH::MUTATION<POP,Solution_Type>::operator ()" 的第一个引用
+          with
+          [
+              POP=Population,
+              Solution_Type=NWFSP_Solution
+          ]
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(81,12):
+              请参阅 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::run" 中对 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::framework" 的第一个引用
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\ParallelRunner.h(57,20):
+              请参阅 "TaskQueue::run_task" 中对 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::run" 的第一个引用
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Global_Search.h(209,45): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Global_Search.h(136,59): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+      C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Global_Search.h(136,59):
+      模板实例化上下文(最早的实例化上下文)为
+          C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(183,48):
+          查看对正在编译的 类 模板 实例化“GLOBAL_SEARCH::CROSSOVER<POP,Solution_Type>”的引用
+          with
+          [
+              POP=Population,
+              Solution_Type=NWFSP_Solution
+          ]
+          C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Global_Search.h(134,20):
+          在编译 类 模板 成员函数“std::vector<int,std::allocator<int>> GLOBAL_SEARCH::CROSSOVER<POP,Solution_Type>::crossover(Solution_type,Solution_type)”时
+          with
+          [
+              POP=Population,
+              Solution_Type=NWFSP_Solution,
+              Solution_type=NWFSP_Solution
+          ]
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Global_Search.h(113,27):
+              请参阅 "GLOBAL_SEARCH::CROSSOVER<POP,Solution_Type>::operator ()" 中对 "GLOBAL_SEARCH::CROSSOVER<POP,Solution_Type>::crossover" 的第一个引用
+          with
+          [
+              POP=Population,
+              Solution_Type=NWFSP_Solution
+          ]
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(183,50):
+              请参阅 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::framework" 中对 "GLOBAL_SEARCH::CROSSOVER<POP,Solution_Type>::operator ()" 的第一个引用
+          with
+          [
+              POP=Population,
+              Solution_Type=NWFSP_Solution
+          ]
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(81,12):
+              请参阅 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::run" 中对 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::framework" 的第一个引用
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\ParallelRunner.h(57,20):
+              请参阅 "TaskQueue::run_task" 中对 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::run" 的第一个引用
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Global_Search.h(137,57): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\initialization.h(177,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+      C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\initialization.h(177,16):
+      模板实例化上下文(最早的实例化上下文)为
+          C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(129,58):
+          查看对正在编译的 类 模板 实例化“INITIALIZATION::SCENARIO_NEH_DOUBLE<POP,Solution_Type>”的引用
+          with
+          [
+              POP=Population,
+              Solution_Type=NWFSP_Solution
+          ]
+          C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\initialization.h(175,17):
+          在编译 类 模板 成员函数“Solution_type INITIALIZATION::SCENARIO_NEH_DOUBLE<POP,Solution_type>::NEH_Generate(PARAMETERS::Params &,int)”时
+          with
+          [
+              Solution_type=NWFSP_Solution,
+              POP=Population
+          ]
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\initialization.h(34,23):
+              请参阅 "INITIALIZATION::SCENARIO_NEH_DOUBLE<POP,Solution_Type>::operator ()" 中对 "INITIALIZATION::SCENARIO_NEH_DOUBLE<POP,Solution_Type>::NEH_Generate" 的第一个引用
+          with
+          [
+              POP=Population,
+              Solution_Type=NWFSP_Solution
+          ]
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(129,60):
+              请参阅 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::framework" 中对 "INITIALIZATION::SCENARIO_NEH_DOUBLE<POP,Solution_Type>::operator ()" 的第一个引用
+          with
+          [
+              POP=Population,
+              Solution_Type=NWFSP_Solution
+          ]
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\Bi-population-v4.h(81,12):
+              请参阅 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::run" 中对 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::framework" 的第一个引用
+              C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\ParallelRunner.h(57,20):
+              请参阅 "TaskQueue::run_task" 中对 "Bipopulation_memetic_version4<NWFSP_Solution,Population>::run" 的第一个引用
+  
+C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\initialization.h(178,20): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“main.cpp”)
+  
+  正在生成代码
+  Previous IPDB not found, fall back to full compilation.
+  All 2797 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  已完成代码的生成
+  NWFSP_PM.vcxproj -> C:\Users\52985\Desktop\新建文件夹 (3)\NWFSP-master\NWFSP_PM\x64\Release\NWFSP_PM.exe

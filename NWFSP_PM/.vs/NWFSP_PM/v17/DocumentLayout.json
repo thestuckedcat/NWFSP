@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\52985\\Desktop\\\u65B0\u5EFA\u6587\u4EF6\u5939 (3)\\NWFSP-master\\NWFSP_PM\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|C:\\Users\\52985\\Desktop\\\u65B0\u5EFA\u6587\u4EF6\u5939 (3)\\NWFSP-master\\NWFSP_PM\\Bi-population-v4.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|solutionrelative:Bi-population-v4.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|C:\\Users\\52985\\Desktop\\\u65B0\u5EFA\u6587\u4EF6\u5939 (3)\\NWFSP-master\\NWFSP_PM\\ParallelRunner.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|solutionrelative:ParallelRunner.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|C:\\Users\\52985\\Desktop\\\u65B0\u5EFA\u6587\u4EF6\u5939 (3)\\NWFSP-master\\NWFSP_PM\\Parameter.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|solutionrelative:Parameter.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|C:\\Users\\52985\\Desktop\\\u65B0\u5EFA\u6587\u4EF6\u5939 (3)\\NWFSP-master\\NWFSP_PM\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|C:\\Users\\52985\\Desktop\\\u65B0\u5EFA\u6587\u4EF6\u5939 (3)\\NWFSP-master\\NWFSP_PM\\Bi-population-v3.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|solutionrelative:Bi-population-v3.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|C:\\Users\\52985\\Desktop\\\u65B0\u5EFA\u6587\u4EF6\u5939 (3)\\NWFSP-master\\NWFSP_PM\\Bi-population-v4.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|solutionrelative:Bi-population-v4.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7DE3C53C-EF2D-4DF3-A068-61C463A62C20}|NWFSP_PM.vcxproj|C:\\Users\\52985\\Desktop\\\u65B0\u5EFA\u6587\u4EF6\u5939 (3)\\NWFSP-master\\NWFSP_PM\\Global_Search.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -27,32 +39,71 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ParallelRunner.h",
+              "DocumentMoniker": "C:\\Users\\52985\\Desktop\\\u65B0\u5EFA\u6587\u4EF6\u5939 (3)\\NWFSP-master\\NWFSP_PM\\ParallelRunner.h",
+              "RelativeDocumentMoniker": "ParallelRunner.h",
+              "ToolTip": "C:\\Users\\52985\\Desktop\\\u65B0\u5EFA\u6587\u4EF6\u5939 (3)\\NWFSP-master\\NWFSP_PM\\ParallelRunner.h",
+              "RelativeToolTip": "ParallelRunner.h",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAAAGIAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-01-31T08:43:36.785Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Parameter.h",
+              "DocumentMoniker": "C:\\Users\\52985\\Desktop\\\u65B0\u5EFA\u6587\u4EF6\u5939 (3)\\NWFSP-master\\NWFSP_PM\\Parameter.h",
+              "RelativeDocumentMoniker": "Parameter.h",
+              "ToolTip": "C:\\Users\\52985\\Desktop\\\u65B0\u5EFA\u6587\u4EF6\u5939 (3)\\NWFSP-master\\NWFSP_PM\\Parameter.h",
+              "RelativeToolTip": "Parameter.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-01-31T08:43:36.268Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "main.cpp",
+              "DocumentMoniker": "C:\\Users\\52985\\Desktop\\\u65B0\u5EFA\u6587\u4EF6\u5939 (3)\\NWFSP-master\\NWFSP_PM\\main.cpp",
+              "RelativeDocumentMoniker": "main.cpp",
+              "ToolTip": "C:\\Users\\52985\\Desktop\\\u65B0\u5EFA\u6587\u4EF6\u5939 (3)\\NWFSP-master\\NWFSP_PM\\main.cpp",
+              "RelativeToolTip": "main.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-01-31T08:43:31.57Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Bi-population-v4.h",
               "DocumentMoniker": "C:\\Users\\52985\\Desktop\\\u65B0\u5EFA\u6587\u4EF6\u5939 (3)\\NWFSP-master\\NWFSP_PM\\Bi-population-v4.h",
               "RelativeDocumentMoniker": "Bi-population-v4.h",
               "ToolTip": "C:\\Users\\52985\\Desktop\\\u65B0\u5EFA\u6587\u4EF6\u5939 (3)\\NWFSP-master\\NWFSP_PM\\Bi-population-v4.h",
               "RelativeToolTip": "Bi-population-v4.h",
-              "ViewState": "AgIAAG8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAGkAAAAAAAAAAAAAAIMAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-01-31T08:13:27.481Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Bi-population-v3.h",
               "DocumentMoniker": "C:\\Users\\52985\\Desktop\\\u65B0\u5EFA\u6587\u4EF6\u5939 (3)\\NWFSP-master\\NWFSP_PM\\Bi-population-v3.h",
               "RelativeDocumentMoniker": "Bi-population-v3.h",
               "ToolTip": "C:\\Users\\52985\\Desktop\\\u65B0\u5EFA\u6587\u4EF6\u5939 (3)\\NWFSP-master\\NWFSP_PM\\Bi-population-v3.h",
               "RelativeToolTip": "Bi-population-v3.h",
-              "ViewState": "AgIAAKUAAAAAAAAAAAAAAJIAAAADAAAAAAAAAA==",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAAJIAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-01-31T08:09:02.892Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "Global_Search.h",
               "DocumentMoniker": "C:\\Users\\52985\\Desktop\\\u65B0\u5EFA\u6587\u4EF6\u5939 (3)\\NWFSP-master\\NWFSP_PM\\Global_Search.h",
               "RelativeDocumentMoniker": "Global_Search.h",
