@@ -188,7 +188,7 @@ public:
 
 			//pop.print_current_state(chosen_solution_index);
 
-			LS_Version4::CRITICAL_PATH<POP, Solution_Type>()(pop, chosen_solution_index, param, scenario_idx);
+			LS_Version4::VNS<POP, Solution_Type>()(pop, chosen_solution_index, param, scenario_idx);
 			
 			pop.Improve_pop();
 

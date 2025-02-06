@@ -153,12 +153,8 @@ public:
 			
 			//long long start = (long long)get_thread_cpu_time();
 			auto start = std::chrono::high_resolution_clock::now();
-			if (g <= 0) {
-				scenario_idx = std::min_element(pop.population.begin(), pop.population.end(), [](auto& a, auto& b) {
-					return a.SI.bad_scenario_num < b.SI.bad_scenario_num;
-					})->SI.worst_scenario_id;
-			}
-			else {
+			if (g > 0) 
+			{
 				state = LS_Version3::get_state(last_BSN, last_WSM);
 				auto idx = max_element(q_table[state].begin(), q_table[state].end());
 				scenario_idx = std::distance(q_table[state].begin(), idx);
@@ -167,7 +163,7 @@ public:
 				//if (epsilon <= param.epsilon)
 				if (param.epsilon < 0)
 				{
-					if (epsilon > ((float)std::max(g,1) / param.max_gen - 0.2))
+					if (epsilon > ((float)std::max(g, 1) / param.max_gen - 0.2))
 					{
 						scenario_idx = generate_random_int(0, param.scenario_num);
 					}
@@ -178,6 +174,15 @@ public:
 					}
 				}
 			}
+			else
+			{
+				/*scenario_idx = std::min_element(pop.population.begin(), pop.population.end(), [](auto& a, auto& b) {
+					return a.SI.bad_scenario_num < b.SI.bad_scenario_num;
+					})->SI.worst_scenario_id;*/
+
+				scenario_idx = generate_random_int(0, param.scenario_num);
+			}
+			
 
 
 			pop.clear();

@@ -518,3 +518,17 @@ private:
 
 
 const int traverse_time = 1;
+
+
+
+
+
+void shuffleVector(std::vector<int>& vec) {
+    if (vec.empty()) return;
+
+
+    static std::random_device rd;
+    static std::default_random_engine rng(rd());
+
+    std::shuffle(vec.begin(), vec.end(), rng);
+}

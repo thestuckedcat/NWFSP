@@ -310,8 +310,76 @@ namespace GLOBAL_SEARCH {
 	};
 
 
+	/*
+		pairwise IG
+	*/
+
+	template<template<typename> class POP, typename Solution_type>
+	struct Pairwise_IG {
+		void operator()(POP<Solution_type>& pop, const std::vector<int> chosen_solution, PARAMETERS::Params& param,int scenario_idx) {
+			for (auto i : chosen_solution) {
+				std::vector<int>& solution = pop.population[i].trans_sequence;
+				pop.population[i].trans_sequence = IG_Process(solution, 0.2, param,scenario_idx);
+				pop.population[i].calculate_transition_scenario_makespan(param);
+			}
+		}
 
 
+	private:
+		std::vector<int> IG_Process(std::vector<int> Originsolution, float pair_num, PARAMETERS::Params& param,int scenario_idx) {
+			int pairNum = 1;
+			if (generate_random_float() > pair_num) {
+				return Originsolution;
+			}
+			else {
+				pairNum = std::max((int)pair_num, pairNum);
+			}
+			Solution_type Origin(Originsolution);
+			Origin.calculate_scenario_makespan(param);
+
+			std::vector<int> bestsolution = Originsolution;
+			long long bestPT = Origin.SI.Penalty_of_TBS;
+			for (int p = 0; p < pair_num; p++) {
+				std::vector<int> solution = Originsolution;
+				int first = generate_random_int(0, solution.size());
+				int targetJob = solution[first];
+				solution.erase(solution.begin() + first);
+
+				int second = generate_random_int(0, solution.size());
+				int targetJob2 = solution[second];
+				solution.erase(solution.begin() + second);
+
+				
+				std::vector<int> bestsubSolution;
+				long long bestSubMakespan = MAXLONGLONG;
+				for (int i = 0; i <= solution.size(); i++) {
+					std::vector<int> subSolution = solution;
+					subSolution.insert(subSolution.begin()+i,targetJob);
+					
+					Solution_type temp(subSolution);
+					long long makespan = temp.get_makespan(param, scenario_idx);
+					if (makespan < bestSubMakespan) {
+						bestsubSolution = subSolution;
+						bestSubMakespan = makespan;
+					}
+				}
+
+				for (int j = 0; j <= bestsubSolution.size(); j++) {
+					std::vector<int> FinalSolution = bestsubSolution;
+					FinalSolution.insert(FinalSolution.begin() + j, targetJob2);
+
+					Solution_type temp(FinalSolution);
+					temp.calculate_scenario_makespan(param);
+					if (temp.SI.Penalty_of_TBS > bestPT) {
+						bestPT = temp.SI.Penalty_of_TBS;
+						bestsolution = FinalSolution;
+					}
+
+				}
+			}
+			return bestsolution;
+		}
+	};
 }
 
 

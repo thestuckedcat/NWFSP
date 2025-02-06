@@ -11,6 +11,8 @@
 #include "myutils.h"
 #include "Bi-population-v3.h"
 #include "Bi-population-v4.h"
+#include "Compare_PIG.h"
+#include "Compare_CMAQ.h"
 struct Task {
 	PARAMETERS::Params param;
 	std::string algorithmName;
@@ -56,7 +58,16 @@ class TaskQueue {
 			Bipopulation_memetic_version4<NWFSP_Solution, Population> bipopulation(task.param, task.algorithmName + "_instance_" + std::to_string(task.run_id));
 			bipopulation.run();
 		}
-		else {
+		else if (task.algorithm == "PIG") {
+			PIG<NWFSP_Solution, Population> pig(task.param, task.algorithmName + "_instance_" + std::to_string(task.run_id));
+			pig.run();
+		}
+		else if (task.algorithm == "CMAQ") {
+			CMAQ<NWFSP_Solution, Population> cmaq(task.param, task.algorithmName + "_instance_" + std::to_string(task.run_id));
+			cmaq.run();
+		}
+		else	
+		{
 			std::cout << "No such algorithm" << std::endl;
 		}
 	}
@@ -105,7 +116,7 @@ public:
 		/*for (int i = 0; i < std::thread::hardware_concurrency(); i++) {
 			threads.emplace_back([this,i]() {this->worker(i); });
 		}*/
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 5; i++) {
 			threads.emplace_back([this, i]() {this->worker(i); });
 		}
 	}

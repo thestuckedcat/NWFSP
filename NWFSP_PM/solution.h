@@ -359,7 +359,6 @@ public:
 	}
 
 
-
 	// Calculate Scenario Info of this solution
 	void calculate_scenario_info(PARAMETERS::Params& param, 
 								int scenario_idx, 

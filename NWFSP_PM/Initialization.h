@@ -29,7 +29,7 @@ namespace INITIALIZATION {
 		void operator()(PARAMETERS::Params &param, POP<Solution_type>& pop) {
 			std::unordered_set<Solution_type> individuals;
 
-			for (int i = 0; i < param.scenario_num; i++) {
+			for (int i = 0; i < param.scenario_num && i < param.pop_size; i++) {
 				//individuals.insert(NEH_Generate(param.scenario[i]));
 				individuals.insert(NEH_Generate(param, i));
 			}
@@ -44,6 +44,11 @@ namespace INITIALIZATION {
 				i.calculate_scenario_makespan(param);
 				pop.population.push_back(i);
 			}
+
+			/*
+			if (pop.population.size() > param.pop_size) {
+				pop.population.resize(param.pop_size);
+			}*/
 			ASSERT_MSG(pop.population.size() == param.pop_size, "Not enough individuals generated");
 		}
 

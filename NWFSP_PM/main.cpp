@@ -8,8 +8,8 @@
 #include "Bi-population-v2.h"
 #include "Bi-population-v3.h"
 #include "Bi-population-v4.h"
-
-
+#include "Compare_PIG.h"
+#include "Compare_CMAQ.h"
 int main() {
 	//set_process_priority();
 	
@@ -22,7 +22,7 @@ int main() {
 	TaskAssigner dispatcher(task_queue);
 	
 	// run 20 times for each task
-	int run_count = 1;
+	int run_count = 5;
 
 	//{
 	//	//std::vector<int> job{100,200 };
@@ -82,7 +82,7 @@ int main() {
 	{
 		//std::vector<int> job{100,200 };
 		//std::vector<int> machine{ 5};
-		std::vector<int> job{ 600,500,400,300,200,100 };
+		std::vector<int> job{ 100,200,300,400,500,600 };
 		std::vector<int> machine{20,40,60};
 		//std::vector<int> machine{ 15 };
 		//std::vector<int> machine{ 15,20 };
@@ -109,8 +109,9 @@ int main() {
 					param.beta = b;
 
 					std::string str1 = str + "_B_" + std::to_string(b);
-
-					dispatcher.assign_tasks(param, str1, run_count, "SQMA");
+					//dispatcher.assign_tasks(param, str1, run_count, "SQMA");
+					//dispatcher.assign_tasks(param, str1, run_count, "PIG");
+					dispatcher.assign_tasks(param, str1, run_count, "CMAQ");
 
 
 					//for (int run_id = 1; run_id <= run_count; run_id++)
@@ -118,12 +119,18 @@ int main() {
 					//	/*param.max_gen = 12000;
 					//	Bipopulation_memetic_version4<NWFSP_Solution, Population> bipopulation2(param, str1 + "_RandomLocalinstance_" + std::to_string(run_id));
 					//	bipopulation2.run();*/
-					//	param.max_gen = 6000;
-					//	Bipopulation_memetic_version3<NWFSP_Solution, Population> bipopulation(param, str1 + "_instance_" + std::to_string(run_id));
-					//	bipopulation.run();
+					//	//param.max_gen = 6000;
+					//	//std::string sqma = "SQMA";
+					//	//std::string pig = "PIG";
+					//	////Bipopulation_memetic_version3<NWFSP_Solution, Population> bipopulation(param,  sqma + "_" + str1 + "_instance_" + std::to_string(run_id));
+					//	////bipopulation.run();
 
+					//	//PIG<NWFSP_Solution, Population> comparisonPIG(param, pig + "_" + str1 + "_instance_" + std::to_string(run_id));
+					//	//comparisonPIG.run();
 
-					//	
+					//	std::string cmaq_str = "CMAQ";
+					//	CMAQ<NWFSP_Solution, Population> cmaq(param, cmaq_str + "_" + str1 + "_instance_" + std::to_string(run_id));
+					//	cmaq.run();
 					//	
 					//}
 
