@@ -4,7 +4,7 @@
 # include<unordered_set>
 # include<cassert>
 # include<random>
-#include <algorithm>
+# include <algorithm>
 # include<queue>
 # include<stack>
 # include<chrono>
@@ -14,7 +14,7 @@
 # include<set>
 # include"OverloadTools.h"
 # include "SingleSceanrioStructure.h"
-
+# include<map>
 
 
 std::vector<int> generate_unique_random_numbers(int n, int m) {
@@ -384,6 +384,200 @@ namespace LOCAL_SEARCH {
 		}
 
 
+	};
+
+
+
+
+	template<template<typename> class POP, typename Solution_type>
+	struct NS_Q1 {
+
+		void operator()(
+			POP<Solution_type>& pop,
+			const std::vector<int>& chosen_solution,
+			std::vector<float>& q_table,
+			PARAMETERS::Params& param) {
+
+			
+
+			for (auto i : chosen_solution) {
+
+				float epsi = generate_random_float();
+
+				int indicator = generate_random_int(0, 3);
+				if (epsi > 0.75) {
+					auto it = std::max_element(q_table.begin(), q_table.end());
+					indicator = std::distance(q_table.begin(), it);
+				}
+				std::vector<int>& solution = pop.population[i].sequence;
+
+				switch (indicator) {
+				case 0:
+					pop.population[i].trans_sequence = MSWAP(solution);
+					break;
+				case 1:
+					pop.population[i].trans_sequence = MReverse(solution);
+					break;
+				case 2:
+					pop.population[i].trans_sequence = Mshuffle(solution);
+					break;
+				};
+
+				pop.population[i].calculate_transition_scenario_makespan(param);
+
+				if (pop.population[i].SI_trans.Penalty_of_TBS < pop.population[i].SI.Penalty_of_TBS) {
+					q_table[indicator] = q_table[indicator]*0.85+100;
+				}
+				else {
+					q_table[indicator] = q_table[indicator] * 0.85 - 1;
+				}
+			}
+			
+
+
+		}
+
+	private:
+		/*
+			Randomly swap the job
+		*/
+		std::vector<int> MSWAP(std::vector<int> solution) {
+			int posa = generate_random_int(0, solution.size());
+			int posb = generate_random_int(0, solution.size());
+			std::swap(solution[posa], solution[posb]);
+			return solution;
+		}
+		/*
+			Randomly select two different positions and reverse order between them 
+		*/
+		std::vector<int> MReverse(std::vector<int> solution) {
+			if (solution.size() < 2) return solution; 
+
+			int posa = generate_random_int(0, solution.size());
+			int posb = generate_random_int(0, solution.size());
+			while (posb == posa) {
+				posb = generate_random_int(0, solution.size());
+			}
+
+			if (posa > posb) std::swap(posa, posb);
+
+			std::reverse(solution.begin() + posa, solution.begin() + posb + 1);
+			return solution;
+		}
+
+		/*
+			Mshuffle: Randomly select two positions and disarrange all the job between
+		*/
+		std::vector<int> Mshuffle(std::vector<int> solution) {
+			if (solution.size() < 2) return solution; 
+
+			int posa = generate_random_int(0, solution.size());
+			int posb = generate_random_int(0, solution.size());
+			while (posb == posa) {
+				posb = generate_random_int(0, solution.size());
+			}
+
+			if (posa > posb) std::swap(posa, posb);
+
+			std::random_shuffle(solution.begin() + posa, solution.begin() + posb + 1);
+			return solution;
+		}
+
+	};
+
+
+	template<template<typename> class POP, typename Solution_type>
+	struct ACO {
+
+		void operator()(
+			POP<Solution_type>& pop,
+			const std::vector<int>& chosen_solution,
+			std::vector<std::vector<float>>& PheromoneMatrix,
+			std::vector<std::vector<float>>& eta,
+			PARAMETERS::Params& param) {
+
+			std::vector<int> bestSolution;
+			long long bestPT = MAXLONGLONG;
+			for (auto i : chosen_solution) {
+				pop.population[i].trans_sequence = AntWorking(PheromoneMatrix, eta);
+				pop.population[i].calculate_transition_scenario_makespan(param);
+
+				if (pop.population[i].SI_trans.Penalty_of_TBS < bestPT) {
+					bestSolution = pop.population[i].trans_sequence;
+					bestPT = pop.population[i].SI_trans.Penalty_of_TBS;
+				}
+			}
+
+			float delta_tau = 1000.0f / bestPT;
+			for (size_t i = 0; i < bestSolution.size() - 1; i++) {
+				int from = bestSolution[i];
+				int to = bestSolution[i + 1];
+				PheromoneMatrix[from][to] += delta_tau;
+			}
+
+
+		}
+
+
+	private:
+		std::vector<int> AntWorking(std::vector<std::vector<float>>& PheromoneMatrix, std::vector<std::vector<float>>& eta) {
+
+			constexpr float alpha = 1.0;  // 信息素权重
+			constexpr float beta = 2.0;   // 启发式信息权重
+			constexpr float rho = 0.1;    // 信息素挥发率
+
+
+
+			std::vector<int> sequence;
+
+			int firstJob = generate_random_int(0, PheromoneMatrix.size());
+			sequence.push_back(firstJob);
+
+			std::unordered_set<int> remaining_jobs;
+			for (int i = 0; i < PheromoneMatrix.size(); i++) {
+				remaining_jobs.insert(i);
+			}
+			remaining_jobs.erase(firstJob);
+
+			while (!remaining_jobs.empty()) {
+				int lastJob = sequence.back();
+				std::vector<float> probabilities;
+				std::vector<int> candidates;
+
+				float sum_prob = 0.0f;
+				for (int job : remaining_jobs) {
+					float pheromone = PheromoneMatrix[lastJob][job];
+					float heuristic = eta[lastJob][job];
+					float prob = pow(pheromone, alpha) * pow(heuristic, beta);
+					probabilities.push_back(prob);
+					candidates.push_back(job);
+					sum_prob += prob;
+				}
+
+				float r = static_cast<float>(rand()) / RAND_MAX * sum_prob;
+				float cumulative_prob = 0.0f;
+				int selectedJob = candidates[0];  
+				for (size_t i = 0; i < candidates.size(); i++) {
+					cumulative_prob += probabilities[i];
+					if (r <= cumulative_prob) {
+						selectedJob = candidates[i];
+						break;
+					}
+				}
+
+				sequence.push_back(selectedJob);
+				remaining_jobs.erase(selectedJob);
+			}
+			// 挥发
+			for (size_t i = 0; i < PheromoneMatrix.size(); i++) {
+				for (size_t j = 0; j < PheromoneMatrix.size(); j++) {
+					PheromoneMatrix[i][j] *= (1.0f - rho);
+				}
+			}
+			return sequence;
+
+
+		}
 	};
 }
 
@@ -817,7 +1011,7 @@ namespace LS_Version3 {
 
 namespace LS_Version4 {
 	template<template<typename> class POP, typename Solution_type>
-	struct CRITICAL_PATH {
+	struct VNS {
 		/*
 		void operator()(POP<Solution_type>& pop,
 						const std::vector<int>& chosen_solution,
@@ -838,8 +1032,8 @@ namespace LS_Version4 {
 
 		//for bi-population
 		void operator()(POP<Solution_type>& pop,
-			const std::vector<int>& chosen_solution,
-			PARAMETERS::Params& param,
+			const std::vector<int> chosen_solution,
+			PARAMETERS::Params param,
 			int scenario_id) {
 
 			for (int i = 0; i < chosen_solution.size(); i++) {
@@ -928,7 +1122,7 @@ namespace LS_Version4 {
 
 		void LN_structure(POP<Solution_type>& pop,
 			const std::pair<int, int>& range,
-			PARAMETERS::Params& param,
+			PARAMETERS::Params param,
 			int scenario_id)
 		{
 			if (range.second <= range.first) {
@@ -951,7 +1145,7 @@ namespace LS_Version4 {
 
 		void UN_structure(POP<Solution_type>& pop,
 			const std::pair<int, int>& range,
-			PARAMETERS::Params& param)
+			PARAMETERS::Params param)
 		{
 
 			for (int i = range.first; i < range.second; i++) {
@@ -975,7 +1169,7 @@ namespace LS_Version4 {
 
 		void find_best_neighbor(std::unordered_set<std::vector<int>>& neighbors,
 			Solution_type& target,
-			PARAMETERS::Params& param)
+			PARAMETERS::Params param)
 		{
 			for (auto& nei : neighbors) {
 				Solution_type temp(nei);
@@ -988,7 +1182,7 @@ namespace LS_Version4 {
 
 		void find_best_neighbor(std::vector<std::vector<int>>& neighbors,
 			Solution_type& target,
-			PARAMETERS::Params& param)
+			PARAMETERS::Params param)
 		{
 			for (auto& nei : neighbors) {
 				Solution_type temp(nei);
